@@ -1,8 +1,11 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
     <main>
       <div class="left-side">
+        <div class="tree">
+          <input type="text" v-model="imagesPath" placeholder="Enter the path...">
+          <button id="search" @click="search()">Search</button>
+        </div>
         <span class="title">
           Welcome to your new project!
         </span>
@@ -10,19 +13,11 @@
       </div>
 
       <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
-        </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
+        <div class="preview">
+          <div class="item" v-for="item in images">
+            {{item}}
+              <!-- <img src="item.jpg" width="180px" alt="item"> -->
+          </div>
         </div>
       </div>
     </main>
@@ -31,13 +26,31 @@
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation';
+  const fs = require('fs');
 
   export default {
     name: 'landing-page',
     components: { SystemInformation },
+    data() {
+      return {
+        imagesPath: '',
+        images: [],
+        selectedImages: [],
+      };
+    },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
+      },
+      search() {
+        this.images = [];
+        console.log('Start search...');
+        fs.readdir(this.imagesPath, (err, dir) => {
+          // this.images.push(dir);
+          for (let i = 0; i < dir.length; i += 1) {
+            this.images.push(dir[i]);
+          }
+        });
       },
     },
   };
@@ -52,6 +65,38 @@
     padding: 0;
   }
 
+  html,
+  body,
+  #app,
+  .main {
+      height: 90%;
+  }
+
+  .main {
+      display: flex;
+  }
+
+  .tree {
+      background-color: #b7d7e8;
+      height: 100%;
+      overflow-y: auto;
+  }
+
+  .preview {
+      background-color: #cfe0e8;
+      width: 80%;
+      height: 100%;
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+  }
+
+  .item {
+      border: 2px solid red;
+      margin: 10px;
+  }
+
+  /**/
   body { font-family: 'Source Sans Pro', sans-serif; }
 
   #wrapper {
@@ -64,12 +109,6 @@
     height: 100vh;
     padding: 60px 80px;
     width: 100vw;
-  }
-
-  #logo {
-    height: auto;
-    margin-bottom: 20px;
-    width: 420px;
   }
 
   main {
@@ -102,12 +141,12 @@
     margin-bottom: 10px;
   }
 
-  .doc p {
+  .preview p {
     color: black;
     margin-bottom: 10px;
   }
 
-  .doc button {
+  .preview button {
     font-size: .8em;
     cursor: pointer;
     outline: none;
@@ -121,7 +160,7 @@
     border: 1px solid #4fc08d;
   }
 
-  .doc button.alt {
+  .preview button.alt {
     color: #42b983;
     background-color: transparent;
   }
