@@ -1,3 +1,11 @@
+# Project
+dist/electron/*
+dist/web/*
+build/*
+!build/icons
+thumbs.db
+!.gitkeep
+
 # Logs
 logs
 *.log
@@ -57,3 +65,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# Idea
+.idea
