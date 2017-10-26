@@ -3,8 +3,8 @@
     <main>
       <div class="left-side">
         <div class="tree">
-          <input type="text" v-model="imagesPath" placeholder="Enter the path...">
-          <button id="search" @click="search()">Search</button>
+          <input type="text" v-model="imagesPath" @keyup.enter="search" placeholder="Enter the path...">
+          <button id="search" @click="search">Search</button>
         </div>
         <span class="title">
           Welcome to your new project!
@@ -44,9 +44,21 @@
       },
       search() {
         this.images = [];
-        console.log('Start search...');
+        console.log('Start search...'); // TODO: Remove console.log
+
+        // Empty path check
+        if (!this.imagesPath) {
+          alert('Error message:\nThe path is empty!');
+          return;
+        }
+
         fs.readdir(this.imagesPath, (err, dir) => {
-          // this.images.push(dir);
+          // Wrong path check
+          if (err) {
+            alert(`Error message:\n${err}`);
+            return;
+          }
+
           for (let i = 0; i < dir.length; i += 1) {
             this.images.push(dir[i]);
           }
