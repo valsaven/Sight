@@ -13,7 +13,7 @@
         <div class="preview">
           <div class="image" v-for="image in images">
             <img :src="image.src" width="180px" alt="image">
-            <p class="image-name">{{image.name}}</p>
+            <p class="image-name" :title="image.name">{{image.name}}</p>
           </div>
         </div>
       </div>
@@ -117,9 +117,12 @@
   }
 
   .image {
-      border: 2px solid red;
+      border: 2px solid red; /* TODO: Remove */
       margin: 10px;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
   }
 
   .image-selected {
@@ -181,6 +184,11 @@
   .preview p {
     color: black;
     margin-bottom: 10px;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
   }
 
   .preview button {
