@@ -14,9 +14,9 @@
 
       <div class="right-side">
         <div class="preview">
-          <div class="item" v-for="item in images">
-            {{item}}
-              <!-- <img src="item.jpg" width="180px" alt="item"> -->
+          <div class="image" v-for="image in images">
+            <img :src="image.src" width="180px" alt="image">
+            <p class="image-name">{{image.name}}</p>
           </div>
         </div>
       </div>
@@ -62,10 +62,19 @@
           }
 
           for (let i = 0; i < dir.length; i += 1) {
-            const fileExt = dir[i].split('.').pop();
+            const fileName = dir[i];
+            const fileExt = fileName.split('.').pop();
 
             if (imageTypes.includes(fileExt)) {
-              this.images.push(dir[i]);
+              const image = {
+                src: `${this.imagesPath}\\${fileName}`,
+                name: fileName,
+                ext: fileExt,
+                size: 0, // soon
+                selected: false,
+              };
+
+              this.images.push(image);
             }
           }
         });
@@ -109,13 +118,13 @@
       flex-wrap: wrap;
   }
 
-  .item {
+  .image {
       border: 2px solid red;
       margin: 10px;
       cursor: pointer;
   }
 
-  .item-selected {
+  .image-selected {
     border: 2px solid #000099;
   }
 
