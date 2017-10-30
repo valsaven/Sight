@@ -115,7 +115,6 @@
 
   .preview {
       background-color: #cfe0e8;
-      width: 80%;
       height: 100%;
       overflow-y: auto;
       display: flex;
@@ -143,16 +142,23 @@
         rgba(229, 229, 229, .9) 100%
       );
     height: 100vh;
-    padding: 60px 80px;
     width: 100vw;
   }
 
   main {
     display: flex;
     justify-content: space-between;
+    height: 100vh;
+    width: 100vw;
   }
 
-  main > div { flex-basis: 50%; }
+  main > .left-side {
+    flex-basis: 20%;
+  }
+
+  main > .right-side {
+    flex-basis: 80%;
+  }
 
   .left-side {
     display: flex;
