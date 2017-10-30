@@ -43,6 +43,8 @@
         this.$electron.shell.openExternal(link);
       },
       search() {
+        const imageTypes = ['gif', 'jpg', 'jpeg', 'png'];
+
         this.images = [];
         console.log('Start search...'); // TODO: Remove console.log
 
@@ -60,7 +62,11 @@
           }
 
           for (let i = 0; i < dir.length; i += 1) {
-            this.images.push(dir[i]);
+            const fileExt = dir[i].split('.').pop();
+
+            if (imageTypes.includes(fileExt)) {
+              this.images.push(dir[i]);
+            }
           }
         });
       },
@@ -106,6 +112,11 @@
   .item {
       border: 2px solid red;
       margin: 10px;
+      cursor: pointer;
+  }
+
+  .item-selected {
+    border: 2px solid #000099;
   }
 
   /**/
