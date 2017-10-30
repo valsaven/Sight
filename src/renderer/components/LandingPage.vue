@@ -7,10 +7,6 @@
           <button id="search" @click="search">Search</button>
           <p class="total">{{total}}</p>
         </div>
-        <span class="title">
-          Welcome to your new project!
-        </span>
-        <system-information></system-information>
       </div>
 
       <div class="right-side">
@@ -26,12 +22,11 @@
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation';
   const fs = require('fs');
 
   export default {
     name: 'landing-page',
-    components: { SystemInformation },
+    components: {},
     data() {
       return {
         imagesPath: '',
