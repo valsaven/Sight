@@ -1,6 +1,6 @@
 # Watcher
 
-> Images watcher
+> A cross-platform image viewer
 
 #### Build Setup
 
@@ -19,3 +19,6 @@ npm run build
 npm run lint
 
 ```
+#### License
+
+GNU GPL v3 - see [LICENSE](LICENSE)
