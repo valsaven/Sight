@@ -5,6 +5,7 @@
         <div class="tree">
           <input type="text" v-model="imagesPath" @keyup.enter="search" placeholder="Enter the path...">
           <button id="search" @click="search">Search</button>
+          <p class="total">{{total}}</p>
         </div>
         <span class="title">
           Welcome to your new project!
@@ -36,6 +37,7 @@
         imagesPath: '',
         images: [],
         selectedImages: [],
+        total: 0,
       };
     },
     methods: {
@@ -46,6 +48,7 @@
         const imageTypes = ['gif', 'jpg', 'jpeg', 'png'];
 
         this.images = [];
+        this.total = 0;
         console.log('Start search...'); // TODO: Remove console.log
 
         // Empty path check
@@ -63,7 +66,7 @@
 
           for (let i = 0; i < dir.length; i += 1) {
             const fileName = dir[i];
-            const fileExt = fileName.split('.').pop();
+            const fileExt = fileName.split('.').pop().toLowerCase();
 
             if (imageTypes.includes(fileExt)) {
               const image = {
@@ -75,6 +78,7 @@
               };
 
               this.images.push(image);
+              this.total += 1;
             }
           }
         });
