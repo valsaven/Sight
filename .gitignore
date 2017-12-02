@@ -67,3 +67,8 @@ typings/
 
 # Idea
 .idea
+
+# VS Code
+.vscode
+
+codealike.json
