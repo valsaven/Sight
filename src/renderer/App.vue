@@ -5,16 +5,16 @@
 </template>
 
 <script>
-  import LandingPage from '@/components/LandingPage';
+import LandingPage from '@/components/LandingPage';
 
-  export default {
-    name: 'watcher',
-    components: {
-      LandingPage,
-    },
-  };
+export default {
+  name: 'watcher',
+  components: {
+    LandingPage,
+  },
+};
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
 </style>

@@ -22,191 +22,195 @@
 </template>
 
 <script>
-  const fs = require('fs');
+const fs = require('fs');
 
-  export default {
-    name: 'landing-page',
-    components: {},
-    data() {
-      return {
-        imagesPath: '',
-        images: [],
-        selectedImages: [],
-        total: 0,
-      };
+export default {
+  name: 'landing-page',
+  components: {},
+  data() {
+    return {
+      imagesPath: '',
+      images: [],
+      selectedImages: [],
+      total: 0,
+    };
+  },
+  methods: {
+    open(link) {
+      this.$electron.shell.openExternal(link);
     },
-    methods: {
-      open(link) {
-        this.$electron.shell.openExternal(link);
-      },
-      search() {
-        const imageTypes = ['gif', 'jpg', 'jpeg', 'png'];
+    search() {
+      const imageTypes = ['gif', 'jpg', 'jpeg', 'png'];
 
-        this.images = [];
-        this.total = 0;
-        console.log('Start search...'); // TODO: Remove console.log
+      this.images = [];
+      this.total = 0;
+      console.log('Start search...'); // TODO: Remove console.log
 
-        // Empty path check
-        if (!this.imagesPath) {
-          alert('Error message:\nThe path is empty!');
+      // Empty path check
+      if (!this.imagesPath) {
+        alert('Error message:\nThe path is empty!');
+        return;
+      }
+
+      fs.readdir(this.imagesPath, (err, dir) => {
+        // Wrong path check
+        if (err) {
+          alert(`Error message:\n${err}`);
           return;
         }
 
-        fs.readdir(this.imagesPath, (err, dir) => {
-          // Wrong path check
-          if (err) {
-            alert(`Error message:\n${err}`);
-            return;
+        for (let i = 0; i < dir.length; i += 1) {
+          const fileName = dir[i];
+          const fileExt = fileName
+            .split('.')
+            .pop()
+            .toLowerCase();
+
+          if (imageTypes.includes(fileExt)) {
+            const image = {
+              src: `${this.imagesPath}\\${fileName}`,
+              name: fileName,
+              ext: fileExt,
+              size: 0, // soon
+              selected: false,
+            };
+
+            this.images.push(image);
+            this.total += 1;
           }
-
-          for (let i = 0; i < dir.length; i += 1) {
-            const fileName = dir[i];
-            const fileExt = fileName.split('.').pop().toLowerCase();
-
-            if (imageTypes.includes(fileExt)) {
-              const image = {
-                src: `${this.imagesPath}\\${fileName}`,
-                name: fileName,
-                ext: fileExt,
-                size: 0, // soon
-                selected: false,
-              };
-
-              this.images.push(image);
-              this.total += 1;
-            }
-          }
-        });
-      },
+        }
+      });
     },
-  };
+  },
+};
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  html,
-  body,
-  #app,
-  .main {
-      height: 90%;
-  }
+html,
+body,
+#app,
+.main {
+  height: 90%;
+}
 
-  .main {
-      display: flex;
-  }
+.main {
+  display: flex;
+}
 
-  .tree {
-      background-color: #b7d7e8;
-      height: 100%;
-      overflow-y: auto;
-  }
+.tree {
+  background-color: #b7d7e8;
+  height: 100%;
+  overflow-y: auto;
+}
 
-  .preview {
-      background-color: #cfe0e8;
-      height: 100%;
-      overflow-y: auto;
-      display: flex;
-      flex-wrap: wrap;
-  }
+.preview {
+  background-color: #cfe0e8;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  overflow-y: auto;
+}
 
-  .image {
-      border: 2px solid red; /* TODO: Remove */
-      margin: 10px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
+.image {
+  align-items: center;
+  border: 2px solid red; /* TODO: Remove */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-  .image-selected {
-    border: 2px solid #000099;
-  }
+.image-selected {
+  border: 2px solid #000099;
+}
 
-  /**/
-  body { font-family: 'Source Sans Pro', sans-serif; }
+/**/
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
 
-  #wrapper {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, .9) 100%
-      );
-    height: 100vh;
-    width: 100vw;
-  }
+#wrapper {
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(255, 255, 255, 1) 40%,
+    rgba(229, 229, 229, 0.9) 100%
+  );
+  height: 100vh;
+  width: 100vw;
+}
 
-  main {
-    display: flex;
-    justify-content: space-between;
-    height: 100vh;
-    width: 100vw;
-  }
+main {
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+  width: 100vw;
+}
 
-  main > .left-side {
-    flex-basis: 20%;
-  }
+main > .left-side {
+  flex-basis: 20%;
+}
 
-  main > .right-side {
-    flex-basis: 80%;
-  }
+main > .right-side {
+  flex-basis: 80%;
+}
 
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
+.left-side {
+  display: flex;
+  flex-direction: column;
+}
 
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
+.welcome {
+  color: #555;
+  font-size: 23px;
+  margin-bottom: 10px;
+}
 
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
+.title {
+  color: #2c3e50;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
 
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
+.title.alt {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
 
-  .preview p {
-    color: black;
-    margin-bottom: 10px;
-    width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-  }
+.preview p {
+  color: black;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 200px;
+}
 
-  .preview button {
-    font-size: .8em;
-    cursor: pointer;
-    outline: none;
-    padding: 0.75em 2em;
-    border-radius: 2em;
-    display: inline-block;
-    color: #fff;
-    background-color: #4fc08d;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-    border: 1px solid #4fc08d;
-  }
+.preview button {
+  background-color: #4fc08d;
+  border-radius: 2em;
+  border: 1px solid #4fc08d;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.8em;
+  outline: none;
+  padding: 0.75em 2em;
+  transition: all 0.15s ease;
+}
 
-  .preview button.alt {
-    color: #42b983;
-    background-color: transparent;
-  }
+.preview button.alt {
+  background-color: transparent;
+  color: #42b983;
+}
 </style>
