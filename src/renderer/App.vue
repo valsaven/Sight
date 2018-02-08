@@ -12,7 +12,7 @@
 
       <div class="right-side">
         <div class="preview">
-          <div class="image" :class="{ 'image-active': image.active }" v-for="image in images">
+          <div class="image" :class="{ 'image-active': image.active }" v-for="image in images" v-on:click="makeImageActive(image.id)">
             <img :src="image.src" width="180px" alt="image">
             <p class="image-name" :title="image.name">{{image.name}}</p>
           </div>
@@ -50,9 +50,7 @@ export default {
             console.log('This is already the first image.');
             break;
           } else {
-            this.activeImage.active = false;
-            this.activeImage = this.images[this.activeImage.id - 1];
-            this.activeImage.active = true;
+            this.changeActiveImage(this.activeImage.id - 1);
           }
 
           break;
@@ -67,9 +65,7 @@ export default {
             console.log('This is already the last image.');
             break;
           } else {
-            this.activeImage.active = false;
-            this.activeImage = this.images[this.activeImage.id + 1];
-            this.activeImage.active = true;
+            this.changeActiveImage(this.activeImage.id + 1);
           }
 
           break;
@@ -81,12 +77,22 @@ export default {
         case 46: // delete
           console.log('delete');
           console.log(this.activeImage);
+          console.log(this.images);
           break;
 
         default:
           return; // exit this handler for other keys
       }
       e.preventDefault(); // prevent the default action (scroll / move caret)
+    },
+    makeImageActive(id) {
+      console.log(id);
+      this.changeActiveImage(id);
+    },
+    changeActiveImage(id) {
+      this.activeImage.active = false;
+      this.activeImage = this.images[id];
+      this.activeImage.active = true;
     },
     open(link) {
       this.$electron.shell.openExternal(link);
