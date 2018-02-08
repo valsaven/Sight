@@ -7,6 +7,7 @@
           <input type="text" v-model="imagesPath" @keyup.enter="search" placeholder="Enter the path...">
           <button id="search" @click="search">Search</button>
           <p class="total">{{total}}</p>
+          Delete images to recycle bin <input type="checkbox" v-model="deleteToRecycleBin">
         </div>
       </div>
 
@@ -25,6 +26,7 @@
 
 <script>
 const fs = require('fs');
+const trash = require('trash');
 
 export default {
   name: 'watcher',
@@ -35,8 +37,9 @@ export default {
   data() {
     return {
       imagesPath: '',
-      images: [],
       activeImage: null,
+      deleteToRecycleBin: true,
+      images: [],
       selectedImages: [],
       total: 0,
     };
@@ -75,12 +78,24 @@ export default {
           break;
 
         case 46: // delete
+          // Debug data
           console.log('delete');
           console.log(this.activeImage);
           console.log(this.images);
 
-          fs.unlinkSync(this.activeImage.src);
-          this.search(); // Update after deleting
+          if (this.deleteToRecycleBin) {
+            // Safe delete (to recycle bin)
+            trash([this.activeImage.src]).then(() => {
+              console.log('Images were successfully deleted.');
+              this.search(); // Update after deleting
+            });
+          } else if (!this.deleteToRecycleBin) {
+            // Permanently delete
+            fs.unlinkSync(this.activeImage.src);
+            this.search(); // Update after deleting
+          } else {
+            console.log('Error in deleting process.');
+          }
 
           break;
 

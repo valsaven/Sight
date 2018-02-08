@@ -1,6 +1,6 @@
 {
   "name": "watcher",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Val Saven <val.saven@gmail.com>",
   "description": "Images watcher",
   "license": "GPL-3.0",
@@ -53,6 +53,7 @@
     }
   },
   "dependencies": {
+    "trash": "^4.2.1",
     "vue": "^2.5.13",
     "vue-electron": "^1.0.6"
   },
