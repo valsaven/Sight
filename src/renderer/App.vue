@@ -78,6 +78,10 @@ export default {
           console.log('delete');
           console.log(this.activeImage);
           console.log(this.images);
+
+          fs.unlinkSync(this.activeImage.src);
+          this.search(); // Update after deleting
+
           break;
 
         default:
