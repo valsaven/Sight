@@ -12,7 +12,7 @@
 
       <div class="right-side">
         <div class="preview">
-          <div class="image" v-for="image in images">
+          <div class="image" :class="{ 'image-active': image.active }" v-for="image in images">
             <img :src="image.src" width="180px" alt="image">
             <p class="image-name" :title="image.name">{{image.name}}</p>
           </div>
@@ -46,6 +46,15 @@ export default {
       switch (e.which) {
         case 37: // left
           console.log('left');
+          if (this.activeImage.id === 0) {
+            console.log('This is already the first image.');
+            break;
+          } else {
+            this.activeImage.active = false;
+            this.activeImage = this.images[this.activeImage.id - 1];
+            this.activeImage.active = true;
+          }
+
           break;
 
         case 38: // up
@@ -54,6 +63,15 @@ export default {
 
         case 39: // right
           console.log('right');
+          if (this.activeImage.id === this.images.length - 1) {
+            console.log('This is already the last image.');
+            break;
+          } else {
+            this.activeImage.active = false;
+            this.activeImage = this.images[this.activeImage.id + 1];
+            this.activeImage.active = true;
+          }
+
           break;
 
         case 40: // down
@@ -102,11 +120,13 @@ export default {
 
           if (imageTypes.includes(fileExt)) {
             const image = {
+              id: i,
               src: `${this.imagesPath}\\${fileName}`,
               name: fileName,
               ext: fileExt,
               size: 0, // soon
               selected: false,
+              active: false,
             };
 
             this.images.push(image);
@@ -115,6 +135,7 @@ export default {
         }
 
         [this.activeImage] = this.images;
+        this.activeImage.active = true;
       });
     },
   },
