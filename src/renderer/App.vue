@@ -159,8 +159,10 @@ export default {
           }
         }
 
-        [this.activeImage] = this.images;
-        this.activeImage.active = true;
+        if (this.images.length !== 0) {
+          [this.activeImage] = this.images;
+          this.activeImage.active = true;
+        }
       });
     },
   },
