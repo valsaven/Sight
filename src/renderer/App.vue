@@ -29,22 +29,46 @@ const fs = require('fs');
 export default {
   name: 'watcher',
   created() {
-    window.addEventListener('keyup', this.myMethod);
+    window.addEventListener('keyup', this.hotKeys);
   },
   components: {},
   data() {
     return {
       imagesPath: '',
       images: [],
+      activeImage: null,
       selectedImages: [],
       total: 0,
     };
   },
   methods: {
-    myMethod(event) {
-      if (event.which === 46) {
-        console.log('DELETE');
+    hotKeys(e) {
+      switch (e.which) {
+        case 37: // left
+          console.log('left');
+          break;
+
+        case 38: // up
+          console.log('up');
+          break;
+
+        case 39: // right
+          console.log('right');
+          break;
+
+        case 40: // down
+          console.log('down');
+          break;
+
+        case 46: // delete
+          console.log('delete');
+          console.log(this.activeImage);
+          break;
+
+        default:
+          return; // exit this handler for other keys
       }
+      e.preventDefault(); // prevent the default action (scroll / move caret)
     },
     open(link) {
       this.$electron.shell.openExternal(link);
@@ -89,6 +113,8 @@ export default {
             this.total += 1;
           }
         }
+
+        [this.activeImage] = this.images;
       });
     },
   },
