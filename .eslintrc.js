@@ -12,8 +12,10 @@ module.exports = {
   globals: {
     __static: true,
   },
-  plugins: ['html'],
-  rules: {
+  plugins: [
+    'html'
+  ],
+  'rules': {
     'global-require': 0,
     'linebreak-style': 0,
     'import/no-unresolved': 0,

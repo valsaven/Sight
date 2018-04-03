@@ -6,22 +6,16 @@
     },
     "renderer": {
       "presets": [
-        [
-          "env",
-          {
-            "modules": false
-          }
-        ]
+        ["env", {
+          "modules": false
+        }]
       ]
     },
     "web": {
       "presets": [
-        [
-          "env",
-          {
-            "modules": false
-          }
-        ]
+        ["env", {
+          "modules": false
+        }]
       ]
     }
   },
