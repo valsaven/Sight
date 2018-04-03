@@ -1,13 +1,27 @@
 <template>
   <div id="app">
+  <v-app>
     <div id="wrapper">
     <main>
       <div class="left-side">
         <div class="tree">
-          <input type="text" v-model="imagesPath" @keyup.enter="search" placeholder="Enter the path...">
-          <button id="search" @click="search">Search</button>
-          <p class="total">{{total}}</p>
-          Delete images to recycle bin <input type="checkbox" v-model="deleteToRecycleBin">
+            <v-container fluid>
+              <v-text-field type="text" v-model="imagesPath" @keyup.enter="search" placeholder="Enter the path..."></v-text-field>
+              <v-container fluid>
+                <v-chip disabled>{{total}}</v-chip>
+                <v-btn depressed color="primary" id="search" @click="search">Search</v-btn>
+              </v-container>
+            </v-container>
+            <v-container fluid>
+              <v-layout row wrap class="light--text">
+                <v-flex xs9>
+                  <v-chip disabled :class="{ 'success': deleteToRecycleBin, 'error': !deleteToRecycleBin }" text-color="white">Delete images to recycle bin</v-chip>
+                </v-flex>
+                <v-flex xs2 offset-xs1>
+                  <v-checkbox color="success" v-model="deleteToRecycleBin"></v-checkbox>
+                </v-flex>
+              </v-layout>
+            </v-container>
         </div>
       </div>
 
@@ -18,10 +32,11 @@
             <p class="image-name" :title="image.name">{{image.name}}</p>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
-  </div>
+        </div>
+      </main>
+    </div>
+  </v-app>
+</div>
 </template>
 
 <script>
