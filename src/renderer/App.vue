@@ -28,8 +28,15 @@
       <div class="right-side">
         <div class="preview">
           <div class="image" :class="{ 'image-active': image.active }" v-for="image in images" v-on:click="makeImageActive(image.id)">
-            <img :src="image.src" width="180px" alt="image">
-            <p class="image-name" :title="image.name">{{image.name}}</p>
+            <v-tooltip bottom light color="blue-grey darken-2">
+              <img :src="image.src" width="180px" alt="image" slot="activator">
+              <div>
+                <span>{{image.name}}</span><br>
+                <span>{{image.modifiedTime}}</span><br>
+                <span>{{image.size}}</span>
+              </div>
+            </v-tooltip>
+            <p class="image-name">{{image.name}}</p>
           </div>
         </div>
         </div>
@@ -131,8 +138,15 @@ export default {
     open(link) {
       this.$electron.shell.openExternal(link);
     },
+    humanFileSize(size) {
+      const i = Math.floor(Math.log(size) / Math.log(1024));
+      const pow = 1024 ** i;
+      return `${(size / pow).toFixed(2) * 1} ${
+        ['B', 'kB', 'MB', 'GB', 'TB'][i]
+      }`;
+    },
     search() {
-      const imageTypes = ['gif', 'jpg', 'jpeg', 'png'];
+      const imageTypes = ['gif', 'jpg', 'jpeg', 'png', 'webp'];
 
       this.images = [];
       this.total = 0;
@@ -159,12 +173,15 @@ export default {
             .toLowerCase();
 
           if (imageTypes.includes(fileExt)) {
+            const fileStats = fs.statSync(`${this.imagesPath}\\${fileName}`);
+
             const image = {
               id: i,
               src: `${this.imagesPath}\\${fileName}`,
               name: fileName,
               ext: fileExt,
-              size: 0, // soon
+              size: this.humanFileSize(fileStats.size),
+              modifiedTime: fileStats.mtime,
               selected: false,
               active: false,
             };
