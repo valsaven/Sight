@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 const fs = require('fs');
 const trash = require('trash');
 
@@ -181,7 +183,9 @@ export default {
               name: fileName,
               ext: fileExt,
               size: this.humanFileSize(fileStats.size),
-              modifiedTime: fileStats.mtime,
+              modifiedTime: moment(fileStats.mtimeMs).format(
+                'DD MMM YYYY, HH:mm:ss',
+              ),
               selected: false,
               active: false,
             };
