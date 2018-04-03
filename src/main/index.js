@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import { app, BrowserWindow } from 'electron'; // eslint-disable-line
 
 /**
