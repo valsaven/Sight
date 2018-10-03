@@ -19,7 +19,14 @@ protocol.registerStandardSchemes(['app'], {
 });
 
 function createMainWindow() {
-  const window = new BrowserWindow();
+  const window = new BrowserWindow({
+    height: 563,
+    useContentSize: true,
+    width: 1000,
+    webPreferences: {
+      webSecurity: false,
+    },
+  });
 
   if (isDevelopment) {
     // Load the url of the dev server if in development mode

@@ -71,8 +71,7 @@
               >
                 <img
                   slot="activator"
-                  :style="{ backgroundImage: 'url(file://' + image.src + ')' }"
-                  :src="image.src"
+                  :src="`file:///${image.src}`"
                   width="180px"
                   alt="image"
                 >
