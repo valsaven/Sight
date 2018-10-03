@@ -1,24 +1,26 @@
-# Watcher
+# watcher
 
-> A cross-platform image viewer
-
-#### Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:9080
-npm run dev
-
-# build electron application for production
-npm run build
-
-
-# lint all JS/Vue component files in `src/`
-npm run lint
-
+## Project setup
 ```
-#### License
+npm install
+```
 
-GNU GPL v3 - see [LICENSE](LICENSE)
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
