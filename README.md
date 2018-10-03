@@ -1,4 +1,6 @@
-# watcher
+# Watcher
+
+> A cross-platform image viewer
 
 ## Project setup
 ```
@@ -24,3 +26,7 @@ npm run test
 ```
 npm run lint
 ```
+
+## License
+
+GNU GPL v3 - see [LICENSE](LICENSE)
