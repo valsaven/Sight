@@ -71,6 +71,7 @@
               >
                 <img
                   slot="activator"
+                  :style="{ backgroundImage: 'url(file://' + image.src + ')' }"
                   :src="image.src"
                   width="180px"
                   alt="image"
@@ -92,6 +93,7 @@
 
 <script>
 import { format } from 'date-fns';
+import os from 'os';
 
 const fs = require('fs');
 const trash = require('trash');
@@ -218,11 +220,13 @@ export default {
             .toLowerCase();
 
           if (imageTypes.includes(fileExt)) {
-            const fileStats = fs.statSync(`${this.imagesPath}\\${fileName}`);
+            const isWindows = os.platform() === 'win32';
+
+            const fileStats = isWindows ? fs.statSync(`${this.imagesPath}\\${fileName}`) : fs.statSync(`${this.imagesPath}/${fileName}`);
 
             const image = {
               id: i,
-              src: `${this.imagesPath}\\${fileName}`,
+              src: isWindows ? `${this.imagesPath}\\${fileName}` : `${this.imagesPath}/${fileName}`,
               name: fileName,
               ext: fileExt,
               size: this.humanFileSize(fileStats.size),
