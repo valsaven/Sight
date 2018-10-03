@@ -1,43 +1,89 @@
 <template>
   <v-app id="app">
     <div id="wrapper">
-    <main>
-      <div class="left-side">
-        <div class="tree">
+      <main>
+        <div class="left-side">
+          <div class="tree">
             <v-container fluid>
-              <v-text-field type="text" v-model="imagesPath" @keyup.enter="search" placeholder="Enter the path..."></v-text-field>
+              <v-text-field
+                v-model="imagesPath"
+                placeholder="Enter the path..."
+                type="text"
+                @keyup.enter="search"
+              />
               <v-container fluid>
-                <v-chip disabled>{{total}}</v-chip>
-                <v-btn depressed color="primary" id="search" @click="search">Search</v-btn>
+                <v-chip
+                  disabled
+                  v-text="total"
+                />
+                <v-btn
+                  id="search"
+                  depressed
+                  color="primary"
+                  @click="search"
+                >
+                  Search
+                </v-btn>
               </v-container>
             </v-container>
             <v-container fluid>
-              <v-layout row wrap class="light--text">
+              <v-layout
+                row
+                wrap
+                class="light--text"
+              >
                 <v-flex xs9>
-                  <v-chip disabled :class="{ 'success': deleteToRecycleBin, 'error': !deleteToRecycleBin }" text-color="white">Delete images to recycle bin</v-chip>
+                  <v-chip
+                    :class="{ 'success': deleteToRecycleBin, 'error': !deleteToRecycleBin }"
+                    disabled
+                    text-color="white"
+                  >
+                    Delete images to recycle bin
+                  </v-chip>
                 </v-flex>
-                <v-flex xs2 offset-xs1>
-                  <v-checkbox color="success" v-model="deleteToRecycleBin"></v-checkbox>
+                <v-flex
+                  xs2
+                  offset-xs1
+                >
+                  <v-checkbox
+                    v-model="deleteToRecycleBin"
+                    color="success"
+                  />
                 </v-flex>
               </v-layout>
             </v-container>
-        </div>
-      </div>
-
-      <div class="right-side">
-        <div class="preview">
-          <div class="image" :class="{ 'image-active': image.active }" v-for="image in images" v-on:click="makeImageActive(image.id)">
-            <v-tooltip bottom light color="blue-grey darken-2">
-              <img :src="image.src" width="180px" alt="image" slot="activator">
-              <div>
-                <span>{{image.name}}</span><br>
-                <span>{{image.modifiedTime}}</span><br>
-                <span>{{image.size}}</span>
-              </div>
-            </v-tooltip>
-            <p class="image-name">{{image.name}}</p>
           </div>
         </div>
+
+        <div class="right-side">
+          <div class="preview">
+            <div
+              v-for="(image, index) in images"
+              :key="index"
+              :class="{ 'image-active': image.active }"
+              class="image"
+              @click="makeImageActive(image.id)"
+            >
+              <v-tooltip
+                bottom
+                light
+                color="blue-grey darken-2"
+              >
+                <img
+                  slot="activator"
+                  :src="image.src"
+                  width="180px"
+                  alt="image"
+                >
+                <div>
+                  <span>{{ image.name }}</span><br>
+                  <span>{{ image.modifiedTime }}</span><br>
+                  <span>{{ image.size }}</span>
+                </div>
+              </v-tooltip>
+              <p class="image-name">{{ image.name }}</p>
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -51,11 +97,7 @@ const fs = require('fs');
 const trash = require('trash');
 
 export default {
-  name: 'watcher',
-  created() {
-    window.addEventListener('keyup', this.hotKeys);
-  },
-  components: {},
+  name: 'Watcher',
   data() {
     return {
       imagesPath: '',
@@ -65,6 +107,9 @@ export default {
       selectedImages: [],
       total: 0,
     };
+  },
+  created() {
+    window.addEventListener('keyup', this.hotKeys);
   },
   methods: {
     hotKeys(e) {
