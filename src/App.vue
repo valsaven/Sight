@@ -57,32 +57,11 @@
 
         <div class="right-side">
           <div class="preview">
-            <div
+            <v-image
               v-for="(image, index) in images"
+              :image="image"
               :key="index"
-              :class="{ 'image-active': image.active }"
-              class="image"
-              @click="makeImageActive(image.id)"
-            >
-              <v-tooltip
-                bottom
-                light
-                color="blue-grey darken-2"
-              >
-                <img
-                  slot="activator"
-                  :src="`file:///${image.src}`"
-                  width="180px"
-                  alt="image"
-                >
-                <div>
-                  <span>{{ image.name }}</span><br>
-                  <span>{{ image.modifiedTime }}</span><br>
-                  <span>{{ image.size }}</span>
-                </div>
-              </v-tooltip>
-              <p class="image-name">{{ image.name }}</p>
-            </div>
+            />
           </div>
         </div>
       </main>
@@ -94,11 +73,16 @@
 import { format } from 'date-fns';
 import os from 'os';
 
+import VImage from './components/VImage.vue';
+
 const fs = require('fs');
 const trash = require('trash');
 
 export default {
   name: 'Watcher',
+  components: {
+    vImage: VImage,
+  },
   data() {
     return {
       imagesPath: '',
@@ -175,6 +159,9 @@ export default {
     makeImageActive(id) {
       console.log(id);
       this.changeActiveImage(id);
+    },
+    toggleSelection(id) {
+      console.log(id);
     },
     changeActiveImage(id) {
       this.activeImage.active = false;
