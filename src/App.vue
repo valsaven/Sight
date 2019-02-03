@@ -69,7 +69,7 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import { format } from 'date-fns';
 import os from 'os';
 
