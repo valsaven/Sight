@@ -280,7 +280,7 @@ body,
 
 .image {
   align-items: center;
-  border: 2px solid red; /* TODO: Remove */
+  border: 2px solid #f00; /* TODO: Remove */
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -288,14 +288,13 @@ body,
 }
 
 .image-selected {
-  border: 2px solid #000099;
+  border: 2px solid #009;
 }
 
 .image-active {
-  border: 4px solid #000099;
+  border: 4px solid #009;
 }
 
-/**/
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -304,7 +303,7 @@ body {
   background: radial-gradient(
     ellipse at top left,
     rgba(255, 255, 255, 1) 40%,
-    rgba(229, 229, 229, 0.9) 100%
+    rgba(229, 229, 229, .9) 100%
   );
   height: 100vh;
   width: 100vw;
@@ -366,14 +365,35 @@ main > .right-side {
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-size: 0.8em;
+  font-size: .8em;
   outline: none;
-  padding: 0.75em 2em;
-  transition: all 0.15s ease;
+  padding: .75em 2em;
+  transition: all .15s ease;
 }
 
 .preview button.alt {
   background-color: transparent;
   color: #42b983;
 }
+
+// 1
+@media only screen and (max-width: 679px)  {}
+
+// 2
+@media only screen and (max-width: 899px)  {}
+
+// 3
+@media only screen and (max-width: 1139px)  {}
+
+// 4
+@media only screen and (max-width: 1399px)  {}
+
+// 5
+@media only screen and (max-width: 1679px)  {}
+
+// 6
+@media only screen and (max-width: 1959px)  {}
+
+// 7
+@media only screen and (max-width: 2239px)  {}
 </style>
