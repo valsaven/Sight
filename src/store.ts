@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    selectedImages: <any[]> [],
+    selectedImages: [] as any[],
   },
   mutations: {
     toggleImageSelection(state, imageId) {

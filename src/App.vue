@@ -181,7 +181,7 @@ export default {
     search() {
       const imageTypes = ['gif', 'jpg', 'jpeg', 'png', 'webp'];
 
-      this.images = [];
+      this.images = [] as any[];
       this.total = 0;
       console.log('Start search...'); // TODO: Remove console.log
 
