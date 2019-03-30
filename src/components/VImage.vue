@@ -16,9 +16,9 @@
         alt="image"
       >
       <div>
-        <span>{{ image.name }}</span><br>
-        <span>{{ image.modifiedTime }}</span><br>
-        <span>{{ image.size }}</span>
+        <span v-text="image.name"/><br>
+        <span v-text="image.modifiedTime"/><br>
+        <span v-text="image.size"/>
       </div>
     </v-tooltip>
     <p class="image-name">{{ image.name }}</p>
