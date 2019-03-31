@@ -1,27 +1,31 @@
 <template>
   <div
     :class="{ 'image-active': selectedImages.includes(image.id) }"
-    class="image"
+    class="image-block"
     @click.ctrl="toggleImageSelection(image.id)"
   >
-    <v-tooltip
-      bottom
-      light
-      color="blue-grey darken-2"
-    >
-      <img
-        slot="activator"
-        :src="`file:///${image.src}`"
-        width="180px"
-        alt="image"
+    <div class="image-block__image">
+      <v-tooltip
+        bottom
+        light
+        color="blue-grey darken-2"
       >
-      <div>
-        <span v-text="image.name"/><br>
-        <span v-text="image.modifiedTime"/><br>
-        <span v-text="image.size"/>
-      </div>
-    </v-tooltip>
-    <p class="image-name">{{ image.name }}</p>
+        <img
+          slot="activator"
+          :src="`file:///${image.src}`"
+          width="180px"
+          alt="image"
+        >
+        <div>
+          <span v-text="image.name" /><br>
+          <span v-text="image.modifiedTime" /><br>
+          <span v-text="image.size" />
+        </div>
+      </v-tooltip>
+    </div>
+    <div class="image-block__title">
+      <span v-text="image.name" />
+    </div>
   </div>
 </template>
 
@@ -44,3 +48,37 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.image-block {
+  border: 1px solid #acacac;
+  height: 170px;
+  margin: 6px;
+  width: 170px;
+}
+
+.image-block__image {
+  height: 150px;
+  padding: 14px 10px;
+}
+
+.image-block__image img {
+  border: 1px solid #acacac;
+  box-shadow: 0 0 2px 1px #acacac;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
+.image-block__title {
+  height: 20px;
+}
+
+.image-block__title span {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
+}
+</style>
