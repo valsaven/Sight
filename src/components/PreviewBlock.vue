@@ -1,10 +1,13 @@
 <template>
   <div class="preview-block">
-    <v-image
-      v-for="(image, index) in images"
-      :image="image"
-      :key="index"
-    />
+    <ul class="preview-block__images-list">
+      <li
+        v-for="(image, index) in images"
+        :key="index"
+      >
+        <v-image :image="image"/>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -108,12 +111,15 @@ export default {
 
 <style scoped>
 .preview-block {
-  display: flex;
   flex-basis: 80%;
-  flex-wrap: wrap;
   height: 100%;
   overflow-y: auto;
   width: 100%;
+}
+
+.preview-block__images-list {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* 1 */
