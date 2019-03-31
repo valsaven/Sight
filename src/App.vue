@@ -3,55 +3,46 @@
     <div id="wrapper">
       <main>
         <div class="left-side">
-          <div class="tree">
-            <v-container fluid>
-              <v-text-field
-                v-model="imagesPath"
-                placeholder="Enter the path..."
+          <div class="menu">
+            <div class="search">
+              <h3 class="search__title">Search</h3>
+              <input
                 type="text"
+                class="search__input"
+                placeholder="Enter the path..."
+                v-model="imagesPath"
                 @keyup.enter="search"
-              />
-              <v-container fluid>
-                <v-chip
-                  disabled
-                  v-text="total"
-                />
-                <v-btn
-                  id="search"
-                  depressed
-                  color="primary"
-                  @click="search"
-                >
-                  Search
-                </v-btn>
-              </v-container>
-            </v-container>
-            <v-container fluid>
-              <v-layout
-                row
-                wrap
-                class="light--text"
               >
-                <v-flex xs9>
-                  <v-chip
-                    :class="{ 'success': deleteToRecycleBin, 'error': !deleteToRecycleBin }"
-                    disabled
-                    text-color="white"
-                  >
-                    Delete images to recycle bin
-                  </v-chip>
-                </v-flex>
-                <v-flex
-                  xs2
-                  offset-xs1
-                >
-                  <v-checkbox
-                    v-model="deleteToRecycleBin"
-                    color="success"
-                  />
-                </v-flex>
-              </v-layout>
-            </v-container>
+              <button
+                class="button search__btn"
+                @click="search"
+              >
+                <i class="material-icons">image_search</i>
+              </button>
+            </div>
+            <div class="short-info">
+              <h3 class="short-info__title">Short info</h3>
+              <span class="short-info__files-number">
+                {{ total }} image(s) | {{ total }} image(s) selected
+              </span>
+            </div>
+            <div class="remove">
+              <h3 class="remove">Remove</h3>
+              <button
+                class="button remove__btn"
+                :class="{ 'remove__btn_danger': !deleteToRecycleBin }"
+              >
+                <i class="material-icons">
+                  {{ deleteToRecycleBin ? 'delete' : 'delete_forever' }}
+                </i>
+              </button>
+              <br>
+              Remove files to recycle bin
+              <input
+                type="checkbox"
+                v-model="deleteToRecycleBin"
+              >
+            </div>
           </div>
         </div>
 
@@ -237,20 +228,12 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro'); /* TODO: Remove */
-
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html,
@@ -264,34 +247,25 @@ body,
   display: flex;
 }
 
-.tree {
-  background-color: #b7d7e8;
+.menu {
+  background-color: #f1f1f1;
   height: 100%;
   overflow-y: auto;
+  padding: 10px 0 0 0;
 }
 
 .preview {
-  background-color: #cfe0e8;
   display: flex;
   flex-wrap: wrap;
   height: 100%;
   overflow-y: auto;
 }
 
-.image {
-  align-items: center;
-  border: 2px solid #f00; /* TODO: Remove */
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.image-selected {
+.image-block_selected {
   border: 2px solid #009;
 }
 
-.image-active {
+.image-block_active {
   border: 4px solid #009;
 }
 
@@ -316,17 +290,41 @@ main {
   width: 100vw;
 }
 
-main > .left-side {
-  flex-basis: 20%;
-}
-
-main > .right-side {
-  flex-basis: 80%;
-}
-
 .left-side {
   display: flex;
   flex-direction: column;
+  flex-basis: 20%;
+}
+
+.right-side {
+  flex-basis: 80%;
+  width: 100%;
+}
+
+.button {
+  background-color: #1e90ff;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  height: 30px;
+  padding: 3px;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:hover {
+  background-color: #4169e1;
+}
+
+.remove__btn_danger {
+  background-color: #ff5252;
+}
+
+.remove__btn_danger:hover {
+  background-color: #d31919;
 }
 
 .welcome {
