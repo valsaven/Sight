@@ -1,6 +1,10 @@
 # Watcher
 
-> A cross-platform image viewer
+A cross-platform image viewer.
+
+Features:
+- Select image: Ctrl + Click
+- Get image info: Hovering mouse over image
 
 ## Project setup
 ```
