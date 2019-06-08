@@ -1,18 +1,35 @@
 <template>
-  <div class="preview-block">
-    <ul class="preview-block__images-list">
-      <li
-        v-for="(image, index) in images"
-        :key="index"
-      >
-        <v-image :image="image" />
-      </li>
-    </ul>
-  </div>
+  <v-dialog
+    v-model="isModalOpened"
+    width="100%"
+  >
+    <template v-slot:activator="{ on }">
+      <div class="preview-block">
+        <ul class="preview-block__images-list">
+          <li
+            v-for="(image, index) in images"
+            :key="index"
+          >
+            <v-image
+              :image="image"
+              :open-image="test"
+            />
+          </li>
+        </ul>
+      </div>
+      <v-card>
+        <v-img
+          :src="`file:///${activeImage.src}`"
+          contain
+          aspect-ratio
+        />
+      </v-card>
+    </template>
+  </v-dialog>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import VImage from './VImage.vue';
 
 const trash = require('trash');
@@ -22,13 +39,37 @@ export default {
   components: {
     vImage: VImage,
   },
+  computed: {
+    ...mapState([
+      'activeImage',
+      'images',
+      'isModalOpened',
+      'selectedImages',
+    ]),
+    isModalOpened: {
+      get() {
+        return this.$store.state.isModalOpened;
+      },
+      set() {
+        this.$store.commit('setItem', {
+          item: 'isModalOpened',
+          value: false,
+        });
+      },
+    },
+  },
+  watch: {
+    activeImage() {
+      console.log(this.activeImage);
+    },
+  },
   created() {
     window.addEventListener('keyup', this.hotKeys);
   },
-  computed: {
-    ...mapState(['images', 'selectedImages']),
-  },
   methods: {
+    ...mapActions([
+      'openImage',
+    ]),
     hotKeys(e) {
       switch (e.which) {
         case 37: // left
@@ -88,7 +129,6 @@ export default {
       }
       e.preventDefault(); // prevent the default action (scroll / move caret)
     },
-
     // TODO: Check
     makeImageActive(id) {
       console.log(id);
@@ -104,6 +144,9 @@ export default {
     },
     open(link) {
       this.$electron.shell.openExternal(link);
+    },
+    test() {
+      console.log('!!!');
     },
   },
 };

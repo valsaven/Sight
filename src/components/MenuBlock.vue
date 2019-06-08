@@ -63,7 +63,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(['images', 'selectedImages', 'total']),
+    ...mapState([
+      'images',
+      'isModalOpened',
+      'selectedImages',
+      'total',
+    ]),
   },
   methods: {
     ...mapMutations(['setItem']),

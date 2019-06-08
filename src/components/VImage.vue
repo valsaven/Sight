@@ -1,48 +1,33 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    width="100%"
+  <div
+    :class="{ 'image-active': image.selected }"
+    class="image-block"
+    @click.exact="$emit('openImage', image)"
+    @click.ctrl="toggleImageSelection(image.id)"
   >
-    <template v-slot:activator="{ on }">
-      <div
-        :class="{ 'image-active': image.selected }"
-        class="image-block"
-        @click.exact="dialog = true"
-        @click.ctrl="toggleImageSelection(image.id)"
+    <div class="image-block__image">
+      <v-tooltip
+        bottom
+        light
+        color="blue-grey darken-2"
       >
-        <div class="image-block__image">
-          <v-tooltip
-            bottom
-            light
-            color="blue-grey darken-2"
-          >
-            <img
-              slot="activator"
-              :src="`file:///${image.src}`"
-              width="180px"
-              alt="image"
-            >
-            <div>
-              <span v-text="image.name" /><br>
-              <span v-text="image.modifiedTime" /><br>
-              <span v-text="image.size" />
-            </div>
-          </v-tooltip>
+        <img
+          slot="activator"
+          :src="`file:///${image.src}`"
+          width="180px"
+          alt="image"
+        >
+        <div>
+          <span v-text="image.name" /><br>
+          <span v-text="image.modifiedTime" /><br>
+          <span v-text="image.size" />
         </div>
-        <div class="image-block__title">
-          <span v-text="image.name" />
-        </div>
-      </div>
-    </template>
-
-    <v-card>
-      <v-img
-        :src="`file:///${image.src}`"
-        contain
-        aspect-ratio
-      />
-    </v-card>
-  </v-dialog>
+      </v-tooltip>
+    </div>
+    <div class="image-block__title">
+      <span v-text="image.name" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -56,16 +41,15 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      dialog: false,
-    };
-  },
   computed: {
-    ...mapState(['selectedImages']),
+    ...mapState([
+      'selectedImages',
+    ]),
   },
   methods: {
-    ...mapActions(['toggleImageSelection']),
+    ...mapActions([
+      'toggleImageSelection',
+    ]),
   },
 };
 </script>

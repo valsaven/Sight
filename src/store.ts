@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     activeImage: null,
     images: [] as any[],
+    isModalOpened: false as boolean,
     selectedImages: [] as any[],
     total: 0,
   },
@@ -129,5 +130,11 @@ export default new Vuex.Store({
         }
       });
     },
+    openImage({ commit }, imageId) {
+      commit('setItem', {
+        item: 'isModalOpened',
+        value: true,
+      });
+    }
   },
 });
