@@ -18,16 +18,17 @@ export default new Vuex.Store({
     setItem(state: any, { item, value }) {
       state[item] = value;
     },
+    reverseImageSelection(state: any, { imageId }) {
+      state.images.map((image: any) => {
+        if (image.id === imageId) {
+          image.selected = !image.selected;
+        }
+      });
+    }
   },
   actions: {
-    toggleImageSelection(state, imageId) {
-      const { selectedImages } = state;
-
-      if (selectedImages.includes(imageId)) {
-        selectedImages.splice(selectedImages.indexOf(imageId), 1);
-      } else {
-        selectedImages.push(imageId);
-      }
+    toggleImageSelection({ state, commit }, imageId) {
+      commit('reverseImageSelection', { imageId });
     },
     loadImages({ commit }, newImages) {
       try {

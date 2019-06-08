@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{ 'image-active': selectedImages.includes(image.id) }"
+    :class="{ 'image-active': image.selected }"
     class="image-block"
     @click.ctrl="toggleImageSelection(image.id)"
   >
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'VImage',
@@ -44,7 +44,7 @@ export default {
     ...mapState(['selectedImages']),
   },
   methods: {
-    ...mapMutations(['toggleImageSelection']),
+    ...mapActions(['toggleImageSelection']),
   },
 };
 </script>
@@ -80,5 +80,9 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 150px;
+}
+
+.image-active {
+  background-color: #d7d0ff;
 }
 </style>
