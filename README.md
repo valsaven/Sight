@@ -9,17 +9,17 @@ npm install
 
 ## Post install
 ```
-electron-builder install-app-deps
+npm run electron-builder install-app-deps
 ```
 
 ### Compiles and hot-reloads Electron package for development
 ```
-vue-cli-service electron:serve
+npm run electron:serve
 ```
 
 ### Compiles and minifies Electron package for production
 ```
-vue-cli-service electron:build
+npm run electron:build
 ```
 
 ### Compiles and hot-reloads for development
