@@ -5,7 +5,7 @@
         v-for="(image, index) in images"
         :key="index"
       >
-        <v-image :image="image"/>
+        <v-image :image="image" />
       </li>
     </ul>
   </div>

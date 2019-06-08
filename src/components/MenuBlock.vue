@@ -44,8 +44,8 @@
       <br>
       Remove files to recycle bin
       <input
-        type="checkbox"
         v-model="deleteToRecycleBin"
+        type="checkbox"
       >
     </div>
   </div>

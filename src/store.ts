@@ -1,7 +1,8 @@
+import os from 'os';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import os from 'os';
 import { format } from 'date-fns';
+
 const fs = require('fs');
 
 Vue.use(Vuex);
@@ -48,14 +49,15 @@ export default new Vuex.Store({
         console.error(err);
       }
     },
-    humanFileSize(size: number): string {
-      const i = Math.floor(Math.log(size) / Math.log(1024));
-      const pow = 1024 ** i;
-      return `${(size / pow).toFixed(2) * 1} ${
-        ['B', 'kB', 'MB', 'GB', 'TB'][i]
-      }`;
-    },
-    getImages({ state,commit, dispatch }, imagesPath) {
+    getImages({ state, commit, dispatch }, imagesPath) {
+      const humanFileSize = (size: number): string => {
+        const i = Math.floor(Math.log(size) / Math.log(1024));
+        const pow = 1024 ** i;
+        return `${(size / pow).toFixed(2) * 1} ${
+          ['B', 'kB', 'MB', 'GB', 'TB'][i]
+        }`;
+      };
+
       const imageTypes = ['gif', 'jpg', 'jpeg', 'png', 'webp'];
 
       dispatch('clearImages');
@@ -74,7 +76,7 @@ export default new Vuex.Store({
         return;
       }
 
-      fs.readdir(imagesPath, (err, dir) => {
+      fs.readdir(imagesPath, (err: any, dir: any) => {
         // Wrong path check
         if (err) {
           alert(`Error message:\n${err}`);
@@ -102,7 +104,7 @@ export default new Vuex.Store({
               src: isWindows ? `${imagesPath}\\${fileName}` : `${imagesPath}/${fileName}`,
               name: fileName,
               ext: fileExt,
-              size: dispatch('humanFileSize', fileStats.size),
+              size: humanFileSize(fileStats.size),
               modifiedTime: format(fileStats.mtimeMs, 'DD MMM YYYY, HH:mm:ss'),
               selected: false,
               active: false,
