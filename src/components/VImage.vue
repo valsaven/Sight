@@ -1,32 +1,48 @@
 <template>
-  <div
-    :class="{ 'image-active': image.selected }"
-    class="image-block"
-    @click.ctrl="toggleImageSelection(image.id)"
+  <v-dialog
+    v-model="dialog"
+    width="100%"
   >
-    <div class="image-block__image">
-      <v-tooltip
-        bottom
-        light
-        color="blue-grey darken-2"
+    <template v-slot:activator="{ on }">
+      <div
+        :class="{ 'image-active': image.selected }"
+        class="image-block"
+        @click.exact="dialog = true"
+        @click.ctrl="toggleImageSelection(image.id)"
       >
-        <img
-          slot="activator"
-          :src="`file:///${image.src}`"
-          width="180px"
-          alt="image"
-        >
-        <div>
-          <span v-text="image.name" /><br>
-          <span v-text="image.modifiedTime" /><br>
-          <span v-text="image.size" />
+        <div class="image-block__image">
+          <v-tooltip
+            bottom
+            light
+            color="blue-grey darken-2"
+          >
+            <img
+              slot="activator"
+              :src="`file:///${image.src}`"
+              width="180px"
+              alt="image"
+            >
+            <div>
+              <span v-text="image.name" /><br>
+              <span v-text="image.modifiedTime" /><br>
+              <span v-text="image.size" />
+            </div>
+          </v-tooltip>
         </div>
-      </v-tooltip>
-    </div>
-    <div class="image-block__title">
-      <span v-text="image.name" />
-    </div>
-  </div>
+        <div class="image-block__title">
+          <span v-text="image.name" />
+        </div>
+      </div>
+    </template>
+
+    <v-card>
+      <v-img
+        :src="`file:///${image.src}`"
+        contain
+        aspect-ratio
+      />
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -39,6 +55,11 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      dialog: false,
+    };
   },
   computed: {
     ...mapState(['selectedImages']),
