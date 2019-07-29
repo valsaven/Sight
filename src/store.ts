@@ -55,7 +55,7 @@ export default new Vuex.Store({
       const humanFileSize = (size: number): string => {
         const i = Math.floor(Math.log(size) / Math.log(1024));
         const pow = 1024 ** i;
-        return `${(size / pow).toFixed(2) * 1} ${
+        return `${<any>(size / pow).toFixed(2) * 1} ${
           ['B', 'kB', 'MB', 'GB', 'TB'][i]
         }`;
       };
