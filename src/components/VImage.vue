@@ -11,12 +11,14 @@
         light
         color="blue-grey darken-2"
       >
-        <img
-          slot="activator"
-          :src="`file:///${image.src}`"
-          width="180px"
-          alt="image"
-        >
+        <template v-slot:activator="{ on }">
+          <img
+            v-on="{ on }"
+            :src="`file:///${image.src}`"
+            width="180px"
+            alt="image"
+          >
+        </template>
         <div>
           <span v-text="image.name" /><br>
           <span v-text="image.modifiedTime" /><br>

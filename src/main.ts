@@ -7,13 +7,16 @@ import 'vuetify/dist/vuetify.min.css';
 import App from './App.vue';
 import store from './store';
 
-Vue.use(Vuetify, {
+const vuetifyOptions = {
   iconfont: 'md',
-});
+};
+
+Vue.use(Vuetify);
 
 Vue.config.productionTip = false;
 
 new Vue({
+  vuetify: new Vuetify(vuetifyOptions),
   store,
   render: (h) => h(App),
 }).$mount('#app');
