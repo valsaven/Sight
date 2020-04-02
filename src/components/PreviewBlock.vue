@@ -1,31 +1,29 @@
 <template>
-  <v-dialog
+  <div
     v-model="isModalOpened"
     width="100%"
   >
-    <template v-slot:activator="{ on }">
-      <div class="preview-block">
-        <ul class="preview-block__images-list">
-          <li
-            v-for="(image, index) in images"
-            :key="index"
-          >
-            <v-image
-              :image="image"
-              :open-image="test"
-            />
-          </li>
-        </ul>
-      </div>
-      <v-card>
-        <v-img
-          :src="`file:///${activeImage.src}`"
-          contain
-          aspect-ratio
-        />
-      </v-card>
-    </template>
-  </v-dialog>
+    <div class="preview-block">
+      <ul class="preview-block__images-list">
+        <li
+          v-for="(image, index) in images"
+          :key="index"
+        >
+          <v-image
+            :image="image"
+            :open-image="test"
+          />
+        </li>
+      </ul>
+    </div>
+    <!--      <v-card>-->
+    <!--        <v-img-->
+    <!--          :src="`file:///${activeImage.src}`"-->
+    <!--          contain-->
+    <!--          aspect-ratio-->
+    <!--        />-->
+    <!--      </v-card>-->
+  </div>
 </template>
 
 <script>

@@ -1,30 +1,35 @@
 <template>
-  <v-app id="app">
+  <div id="app">
     <div id="wrapper">
       <main>
-        <menu-block />
+        <app-bar/>
         <preview-block v-if="images.length > 0" />
       </main>
     </div>
-  </v-app>
+  </div>
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 
-import MenuBlock from './components/MenuBlock.vue';
+import AppBar from './components/AppBar.vue';
 import PreviewBlock from './components/PreviewBlock.vue';
 
-export default {
-  name: 'Watcher',
+@Component({
   components: {
-    menuBlock: MenuBlock,
-    previewBlock: PreviewBlock,
+    AppBar,
+    PreviewBlock,
   },
-  computed: {
-    ...mapState(['images']),
-  },
-};
+  // omit the namespace argument ('myModule') if you are not using namespaced modules
+  computed: mapState([
+    'images',
+    'total',
+  ]),
+})
+export default class App extends Vue {
+  public images!: []; // is assigned via mapState
+}
 </script>
 
 <style>
@@ -41,6 +46,7 @@ body,
 #app,
 .main {
   height: 90%;
+  margin: 0;
 }
 
 .main {
@@ -72,7 +78,7 @@ body {
 main {
   display: flex;
   height: 100vh;
-  justify-content: space-between;
   width: 100vw;
+  flex-direction: column;
 }
 </style>
