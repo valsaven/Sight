@@ -177,7 +177,4 @@ export default class AppBar extends Vue {
 .app-bar__item {
   flex: 20%;
 }
-
-.button {
-}
 </style>

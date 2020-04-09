@@ -43,21 +43,8 @@ export default class App extends Vue {
 
 html,
 body,
-#app,
-.main {
+#app {
   margin: 0;
-}
-
-.main {
-  display: flex;
-}
-
-.image-block_selected {
-  border: 2px solid #009;
-}
-
-.image-block_active {
-  border: 4px solid #009;
 }
 
 body {

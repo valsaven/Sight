@@ -2,7 +2,6 @@
   <div
     class="preview-block__wrapper"
     v-model="isModalOpened"
-    width="100%"
   >
     <div class="preview-block">
       <ul class="preview-block__images-list">
@@ -13,13 +12,6 @@
         />
       </ul>
     </div>
-    <!--      <v-card>-->
-    <!--        <v-img-->
-    <!--          :src="`file:///${activeImage.src}`"-->
-    <!--          contain-->
-    <!--          aspect-ratio-->
-    <!--        />-->
-    <!--      </v-card>-->
   </div>
 </template>
 
@@ -27,7 +19,6 @@
 import { mapState, mapActions } from 'vuex';
 import VImage from './VImage.vue';
 import VPreview from './VPreview.vue';
-
 
 const trash = require('trash');
 
