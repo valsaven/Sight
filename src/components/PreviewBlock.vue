@@ -5,15 +5,11 @@
   >
     <div class="preview-block">
       <ul class="preview-block__images-list">
-        <li
+        <v-preview
           v-for="(image, index) in images"
           :key="index"
-        >
-          <v-image
-            :image="image"
-            :open-image="test"
-          />
-        </li>
+          :image="image"
+        />
       </ul>
     </div>
     <!--      <v-card>-->
@@ -29,6 +25,8 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import VImage from './VImage.vue';
+import VPreview from './VPreview.vue';
+
 
 const trash = require('trash');
 
@@ -36,6 +34,7 @@ export default {
   name: 'PreviewBlock',
   components: {
     vImage: VImage,
+    vPreview: VPreview,
   },
   computed: {
     ...mapState([
@@ -161,6 +160,7 @@ export default {
 .preview-block__images-list {
   display: flex;
   flex-wrap: wrap;
+  list-style-type: none;
 }
 
 /* 1 */
