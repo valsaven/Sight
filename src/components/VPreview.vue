@@ -9,7 +9,7 @@
         >
       </div>
       <div class="v-preview__details">
-        <div class="v-preview__details-size">800x600</div>
+        <div class="v-preview__details-size">{{ image.dimensions }}</div>
         <div class="v-preview__details-ext">{{ image.ext }}</div>
       </div>
     </div>

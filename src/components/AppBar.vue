@@ -44,6 +44,7 @@ import os from 'os';
 const fs = require('fs');
 
 import { format } from 'date-fns';
+import { imageSize } from 'image-size';
 
 import { useStore } from 'vuex-simple';
 import { RootStore } from '@/store/store';
@@ -119,10 +120,19 @@ export default class AppBar extends Vue {
             ? fs.statSync(`${this.imagesPath}\\${fileName}`)
             : fs.statSync(`${this.imagesPath}/${fileName}`);
 
+
+          const src = isWindows
+            ? `${this.imagesPath}\\${fileName}`
+            : `${this.imagesPath}/${fileName}`;
+
+          const dim = imageSize(src);
+          const dimensions = `${dim.width}x${dim.height}`;
+
           const image: Image = {
             id: i,
-            src: isWindows ? `${this.imagesPath}\\${fileName}` : `${this.imagesPath}/${fileName}`,
+            src,
             name: fileName,
+            dimensions,
             ext: fileExt,
             size: humanFileSize(fileStats.size),
             modifiedTime: format(fileStats.mtimeMs, 'dd mmm yyyy, HH:mm:ss'),
