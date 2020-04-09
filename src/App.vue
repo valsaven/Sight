@@ -45,7 +45,6 @@ html,
 body,
 #app,
 .main {
-  height: 90%;
   margin: 0;
 }
 
@@ -77,7 +76,7 @@ body {
 
 main {
   display: flex;
-  height: 100vh;
+  height: calc(100% - 51px);
   width: 100vw;
   flex-direction: column;
 }

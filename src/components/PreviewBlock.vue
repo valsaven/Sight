@@ -1,5 +1,6 @@
 <template>
   <div
+    class="preview-block__wrapper"
     v-model="isModalOpened"
     width="100%"
   >
@@ -147,6 +148,10 @@ export default {
 </script>
 
 <style scoped>
+.preview-block__wrapper {
+  height: 100%;
+}
+
 .preview-block {
   flex-basis: 80%;
   height: 100%;
