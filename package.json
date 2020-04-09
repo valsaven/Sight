@@ -1,8 +1,8 @@
 {
-  "name": "watcher",
-  "productName": "watcher",
+  "name": "sight",
+  "productName": "sight",
   "version": "1.0.0",
-  "description": "Images watcher",
+  "description": "Fast image viewer",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",

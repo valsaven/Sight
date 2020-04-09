@@ -1,4 +1,4 @@
-# Watcher
+# Sight
 
 A cross-platform image viewer.
 
