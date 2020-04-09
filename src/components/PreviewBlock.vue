@@ -142,9 +142,6 @@ export default {
     open(link) {
       this.$electron.shell.openExternal(link);
     },
-    test() {
-      console.log('!!!');
-    },
   },
 };
 </script>
@@ -162,25 +159,4 @@ export default {
   flex-wrap: wrap;
   list-style-type: none;
 }
-
-/* 1 */
-@media only screen and (max-width: 679px)  {}
-
-/* 2 */
-@media only screen and (max-width: 899px)  {}
-
-/* 3 */
-@media only screen and (max-width: 1139px)  {}
-
-/* 4 */
-@media only screen and (max-width: 1399px)  {}
-
-/* 5 */
-@media only screen and (max-width: 1679px)  {}
-
-/* 6 */
-@media only screen and (max-width: 1959px)  {}
-
-/* 7 */
-@media only screen and (max-width: 2239px)  {}
 </style>
