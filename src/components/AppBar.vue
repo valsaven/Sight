@@ -3,7 +3,7 @@
     <div class="app-bar__item search">
       <button
         class="button search__btn"
-        @keyup.enter="getImages(imagesPath)"
+        @click="goUp"
         v-text="'Up'"
       />
       <input
@@ -50,6 +50,7 @@ import { useStore } from 'vuex-simple';
 import { RootStore } from '@/store/store';
 
 import { Image, Images } from '@/types';
+import { sep } from 'path';
 
 @Component
 export default class AppBar extends Vue {
@@ -65,6 +66,14 @@ export default class AppBar extends Vue {
 
   deleteToRecycleBin: boolean = true;
   imagesPath: string = '';
+
+  loadImages(images: Images) {
+    try {
+      this.store.setImages(images);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   clearImages() {
     try {
@@ -114,33 +123,30 @@ export default class AppBar extends Vue {
           .toLowerCase();
 
         if (imageTypes.includes(fileExt)) {
-          const isWindows = os.platform() === 'win32';
+          const src = `${this.imagesPath}${sep}${fileName}`;
+          const fileStats = fs.statSync(src);
 
-          const fileStats = isWindows
-            ? fs.statSync(`${this.imagesPath}\\${fileName}`)
-            : fs.statSync(`${this.imagesPath}/${fileName}`);
+          try {
+            const dim = imageSize(src);
+            const dimensions = `${dim.width}x${dim.height}`;
 
+            const image: Image = {
+              id: i,
+              src,
+              name: fileName,
+              dimensions,
+              ext: fileExt,
+              size: humanFileSize(fileStats.size),
+              modifiedTime: format(fileStats.mtimeMs, 'dd mmm yyyy, HH:mm:ss'),
+              selected: false,
+              active: false,
+            };
 
-          const src = isWindows
-            ? `${this.imagesPath}\\${fileName}`
-            : `${this.imagesPath}/${fileName}`;
-
-          const dim = imageSize(src);
-          const dimensions = `${dim.width}x${dim.height}`;
-
-          const image: Image = {
-            id: i,
-            src,
-            name: fileName,
-            dimensions,
-            ext: fileExt,
-            size: humanFileSize(fileStats.size),
-            modifiedTime: format(fileStats.mtimeMs, 'dd mmm yyyy, HH:mm:ss'),
-            selected: false,
-            active: false,
-          };
-
-          tempImagesArray.push(image);
+            tempImagesArray.push(image);
+          } catch (e) {
+            console.log(e);
+            console.log(e.message);
+          }
         }
       }
 
@@ -152,17 +158,17 @@ export default class AppBar extends Vue {
       this.store.setTotal(tempImagesArray.length);
 
       if (this.images.length !== 0) {
-        this.store.setActiveImage(this.images[0])
+        this.store.setActiveImage(this.images[0]);
       }
     });
+
   }
 
-  loadImages(images: Images) {
-    try {
-      this.store.setImages(images);
-    } catch (err) {
-      console.error(err);
-    }
+  goUp() {
+    let tempPath = this.imagesPath.split(sep);
+    tempPath.pop();
+    this.imagesPath = tempPath.join(sep);
+    this.getImages();
   }
 }
 </script>
