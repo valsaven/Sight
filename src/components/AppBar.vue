@@ -65,7 +65,7 @@ export default class AppBar extends Vue {
   }
 
   deleteToRecycleBin: boolean = true;
-  imagesPath: string = '';
+  imagesPath: string = 'D:\\dev\\tempImages';
 
   loadImages(images: Images) {
     try {

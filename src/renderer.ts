@@ -29,10 +29,14 @@
 import './index.css';
 
 import Vue from 'vue';
+import { RecycleScroller } from 'vue-virtual-scroller';
+
 import App from './App.vue';
 import store from './store';
 
 Vue.config.productionTip = false;
+
+Vue.component('RecycleScroller', RecycleScroller);
 
 new Vue({
     store,

@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -6,7 +7,21 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
+import { protocol } from 'electron';
+
 const createWindow = () => {
+  const protocolName = 'safe-file-protocol';
+
+  protocol.registerFileProtocol(protocolName, (request, callback) => {
+    const url = request.url.replace(`${protocolName}://`, '');
+    try {
+      return callback(decodeURIComponent(url));
+    } catch (error) {
+      // Handle the error as needed
+      console.error(error);
+    }
+  });
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 720,

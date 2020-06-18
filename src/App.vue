@@ -2,8 +2,8 @@
   <div id="app">
     <div id="wrapper">
       <main>
-        <app-bar/>
-        <preview-block v-if="images.length > 0" />
+        <v-image-list/>
+        <v-preview></v-preview>
       </main>
     </div>
   </div>
@@ -13,13 +13,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 
-import AppBar from './components/AppBar.vue';
-import PreviewBlock from './components/PreviewBlock.vue';
+import VImageList from './views/ImageList/VImageList.vue';
+import VPreview from './views/Preview/VPreview.vue';
 
 @Component({
   components: {
-    AppBar,
-    PreviewBlock,
+    VImageList,
+    VPreview,
   },
   // omit the namespace argument ('myModule') if you are not using namespaced modules
   computed: mapState([
@@ -65,6 +65,6 @@ main {
   display: flex;
   height: calc(100% - 51px);
   width: 100vw;
-  flex-direction: column;
+  flex-direction: row;
 }
 </style>

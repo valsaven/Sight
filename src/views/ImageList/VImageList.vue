@@ -1,32 +1,42 @@
 <template>
   <div
-    class="preview-block__wrapper"
+    class="v-image-list__wrapper"
     v-model="isModalOpened"
   >
-    <div class="preview-block">
-      <ul class="preview-block__images-list">
-        <v-preview
-          v-for="(image, index) in images"
-          :key="index"
-          :image="image"
+    <app-bar/>
+    <div
+      v-if="images.length > 0"
+      class="v-image-list"
+    >
+      <RecycleScroller
+        class="scroller"
+        :items="images"
+        :item-size="8"
+        key-field="id"
+        v-slot="{ item }"
+      >
+        <v-thumbnail
+          :image="item"
         />
-      </ul>
+      </RecycleScroller>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import VImage from './VImage.vue';
-import VPreview from './VPreview.vue';
+import AppBar from '../../components/AppBar.vue';
+import VImage from '../../components/VImage.vue';
+import VThumbnail from '../../components/VThumbnail.vue';
 
 const trash = require('trash');
 
 export default {
   name: 'PreviewBlock',
   components: {
-    vImage: VImage,
-    vPreview: VPreview,
+    AppBar,
+    VImage,
+    VThumbnail,
   },
   computed: {
     ...mapState([
@@ -139,18 +149,19 @@ export default {
 </script>
 
 <style scoped>
-.preview-block__wrapper {
+.v-image-list__wrapper {
   height: 100%;
+  width: 400px;
 }
 
-.preview-block {
+.v-image-list {
   flex-basis: 80%;
   height: 100%;
   overflow-y: auto;
   width: 100%;
 }
 
-.preview-block__images-list {
+.v-image-list__images-list {
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
