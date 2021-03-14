@@ -26,7 +26,14 @@ module.exports = [
   },
   {
     test: /\.vue$/,
-    loader: 'vue-loader'
+    use: [
+      {
+        loader: 'vue-loader',
+      },
+      {
+        loader: 'vue-svg-inline-loader',
+      }
+    ]
   },
   {
     test: /parsers\.js$/,

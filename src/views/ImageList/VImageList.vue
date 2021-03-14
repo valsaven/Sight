@@ -3,7 +3,6 @@
     class="v-image-list__wrapper"
     v-model="isModalOpened"
   >
-    <app-bar/>
     <div
       v-if="images.length > 0"
       class="v-image-list"
@@ -25,7 +24,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import AppBar from '../../components/AppBar.vue';
+
 import VImage from '../../components/VImage.vue';
 import VThumbnail from '../../components/VThumbnail.vue';
 
@@ -34,7 +33,6 @@ const trash = require('trash');
 export default {
   name: 'PreviewBlock',
   components: {
-    AppBar,
     VImage,
     VThumbnail,
   },

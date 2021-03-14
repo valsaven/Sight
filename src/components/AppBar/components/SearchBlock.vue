@@ -1,71 +1,38 @@
 <template>
-  <div class="app-bar">
-    <div class="app-bar__item search">
-      <button
-        class="button search__btn"
-        @click="goUp"
-        v-text="'Up'"
-      />
-      <input
-        v-model="imagesPath"
-        type="text"
-        class="search__input"
-        placeholder="Enter the path..."
-        @keyup.enter="getImages(imagesPath)"
-      >
-    </div>
+  <div class="search">
+    <button
+      class="button search__btn"
+      @click="goUp"
+    >
+      Up
+    </button>
 
-    <div class="app-bar__item short-info">
-      <span class="short-info__files-number">
-        {{ total }} image(s) | {{ total }} image(s) selected
-      </span>
-    </div>
-
-    <div class="app-bar__item remove">
-      <button
-        class="button remove__btn"
-        :class="{ 'remove__btn_danger': !deleteToRecycleBin }"
-        v-text="'Del'"
-      />
-      <br>
-      Remove files to recycle bin
-      <input
-        v-model="deleteToRecycleBin"
-        type="checkbox"
-      >
-    </div>
+    <input
+      v-model="imagesPath"
+      type="text"
+      class="search__input"
+      placeholder="Enter the path..."
+      @keyup.enter="getImages(imagesPath)"
+    >
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import os from 'os';
+import { Image, Images } from "@/types";
+import { sep } from "path";
+import { imageSize } from "image-size";
+import { format } from "date-fns";
+import { RootStore } from "@/store/store";
+import { useStore } from "vuex-simple";
 
 const fs = require('fs');
 
-import { format } from 'date-fns';
-import { imageSize } from 'image-size';
-
-import { useStore } from 'vuex-simple';
-import { RootStore } from '@/store/store';
-
-import { Image, Images } from '@/types';
-import { sep } from 'path';
-
 @Component
-export default class AppBar extends Vue {
+export default class SearchBlock extends Vue {
   public store: RootStore = useStore(this.$store);
 
-  public get images() {
-    return this.store.images;
-  }
-
-  public get total() {
-    return this.store.total;
-  }
-
-  deleteToRecycleBin: boolean = true;
-  imagesPath: string = 'D:\\dev\\tempImages';
+  imagesPath: string = '/home/val/dev_vs/tmppp';
 
   loadImages(images: Images) {
     try {
@@ -161,7 +128,6 @@ export default class AppBar extends Vue {
         this.store.setActiveImage(this.images[0]);
       }
     });
-
   }
 
   goUp() {
@@ -173,14 +139,6 @@ export default class AppBar extends Vue {
 }
 </script>
 
-<style>
-.app-bar {
-  background-color: #f1f1f1;
-  display: flex;
-  padding: 10px 0 0 0;
-}
+<style scoped>
 
-.app-bar__item {
-  flex: 20%;
-}
 </style>

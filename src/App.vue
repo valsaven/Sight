@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="wrapper">
+      <app-bar/>
       <main>
         <v-image-list/>
         <v-preview></v-preview>
@@ -13,11 +14,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 
+import AppBar from './components/AppBar/index.vue';
+
 import VImageList from './views/ImageList/VImageList.vue';
 import VPreview from './views/Preview/VPreview.vue';
 
 @Component({
   components: {
+    AppBar,
     VImageList,
     VPreview,
   },
