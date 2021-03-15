@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 
 import { createVuexStore } from 'vuex-simple';
 
-import { RootStore } from './store';
+import RootStore from './store';
 
 Vue.use(Vuex);
 
@@ -16,4 +16,3 @@ export default createVuexStore(instance, {
   modules: {},
   plugins: [],
 });
-

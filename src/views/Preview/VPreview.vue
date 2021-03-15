@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { Image } from '@/types';
+import { Image } from '@/types/shared';
 // import Portrait from './assets/portrait-black-18dp.svg';
 
 @Component

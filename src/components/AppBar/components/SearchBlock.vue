@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Image, Images } from "@/types";
+import { Image, Images } from "@/types/shared";
 import { sep } from "path";
 import { imageSize } from "image-size";
 import { format } from "date-fns";

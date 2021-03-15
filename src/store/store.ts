@@ -1,7 +1,7 @@
 import { Action, Mutation, State } from 'vuex-simple';
-import { Image, Images } from '@/types';
+import { Image, Images } from '@/types/shared';
 
-export class RootStore {
+export default class RootStore {
   @State()
   public activeImage?: Image;
 

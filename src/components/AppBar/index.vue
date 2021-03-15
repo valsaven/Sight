@@ -25,18 +25,17 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { useStore } from 'vuex-simple';
 
+import { RootStore } from '@/store/store';
 import SearchBlock from './components/SearchBlock.vue';
 import ShortInfoBlock from './components/ShortInfoBlock.vue';
 import DeleteBlock from './components/DeleteBlock.vue';
-
-import { RootStore } from '@/store/store';
 
 @Component({
   components: {
     SearchBlock,
     ShortInfoBlock,
     DeleteBlock,
-  }
+  },
 })
 export default class AppBar extends Vue {
   public store: RootStore = useStore(this.$store);
@@ -49,7 +48,7 @@ export default class AppBar extends Vue {
     return this.store.total;
   }
 
-  deleteToRecycleBin: boolean = true;
+  deleteToRecycleBin = true;
 }
 </script>
 
