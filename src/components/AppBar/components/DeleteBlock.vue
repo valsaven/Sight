@@ -13,20 +13,22 @@
       id="delete-to-recycle-bin"
       v-model="deleteToRecycleBin"
       type="checkbox"
+      @click="toggleDeleteMode"
     >
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Emit, Vue } from 'vue-property-decorator';
 
 @Component
 export default class DeleteBlock extends Vue {
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  deleteToRecycleBin?: boolean;
+  @Emit('toggle-delete-mode')
+  toggleDeleteMode(): boolean {
+    return this.deleteToRecycleBin;
+  }
+
+  deleteToRecycleBin = true;
 }
 </script>
 

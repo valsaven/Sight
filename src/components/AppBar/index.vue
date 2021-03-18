@@ -3,6 +3,7 @@
     <!-- SEARCH -->
     <search-block
       class="app-bar__item"
+      :images="images"
     />
 
     <!-- SHORT INFO -->
@@ -14,8 +15,7 @@
     <!-- DELETE -->
     <delete-block
       class="app-bar__item"
-      :delete-to-recycle-bin="deleteToRecycleBin"
-      @toggle-delete-mode="deleteToRecycleBin = !deleteToRecycleBin"
+      @toggle-delete-mode="toggleDeleteMode"
     />
     <!-- FIXME: [Vue warn]: Avoid mutating a prop directly at line 18 -->
   </div>
@@ -49,6 +49,10 @@ export default class AppBar extends Vue {
   }
 
   deleteToRecycleBin = true;
+
+  toggleDeleteMode(val: boolean) {
+    this.deleteToRecycleBin = val;
+  }
 }
 </script>
 

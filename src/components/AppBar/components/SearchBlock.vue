@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Image, Images } from "@/types/shared";
 import { sep } from "path";
 import { imageSize } from "image-size";
@@ -31,6 +31,11 @@ const fs = require('fs');
 @Component
 export default class SearchBlock extends Vue {
   public store: RootStore = useStore(this.$store);
+
+  @Prop({
+    type: Array,
+  })
+  images: any;
 
   imagesPath: string = '/home/val/dev_vs/tmppp';
 
