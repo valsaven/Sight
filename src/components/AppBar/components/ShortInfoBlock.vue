@@ -1,7 +1,7 @@
 <template>
   <div class="short-info">
     <span class="short-info__files-number">
-      {{ total }} image(s) | {{ total }} image(s) selected
+      {{ total }} image(s)
     </span>
   </div>
 </template>
