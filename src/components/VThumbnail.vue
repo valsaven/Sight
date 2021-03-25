@@ -1,7 +1,8 @@
 <template>
   <div
     class="v-thumbnail"
-    @click="onClick"
+    @click.exact="openImage"
+    @click.ctrl="selectImage"
   >
     <!-- Image -->
     <div class="v-thumbnail__image-container">
@@ -31,7 +32,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import {
+  Vue,
+  Component,
+  Emit,
+  Prop,
+} from 'vue-property-decorator';
 
 interface Image {
   src: string;
@@ -45,8 +51,20 @@ export default class VPreview extends Vue {
   @Prop()
   image?: Image;
 
-  onClick() {
+  @Emit('open-image')
+  openImage() {
+    console.log('openImage');
     console.log(this.image);
+
+    return this.image;
+  }
+
+  @Emit('select-image')
+  selectImage() {
+    console.log('selectImage');
+    console.log(this.image);
+
+    return this.image;
   }
 }
 </script>

@@ -1,149 +1,179 @@
 <template>
   <div
     class="v-image-list__wrapper"
-    v-model="isModalOpened"
   >
     <div
       v-if="images.length > 0"
       class="v-image-list"
     >
       <RecycleScroller
+        v-slot="{ item }"
         class="scroller"
         :items="images"
         :item-size="8"
         key-field="id"
-        v-slot="{ item }"
       >
         <v-thumbnail
           :image="item"
+          @open-image="onOpenImage"
+          @select-image="onSelectImage"
         />
       </RecycleScroller>
     </div>
   </div>
 </template>
 
-<script>
-import { mapState, mapActions } from 'vuex';
+<script lang="ts">
+import {
+  Vue,
+  Component,
+  Emit,
+  Prop,
+  Watch,
+} from 'vue-property-decorator';
+import trash from 'trash';
 
+import fs from 'fs';
+import { Image, Images } from '../../types/shared';
 import VImage from '../../components/VImage.vue';
 import VThumbnail from '../../components/VThumbnail.vue';
 
-const trash = require('trash');
-
-export default {
-  name: 'PreviewBlock',
+@Component({
   components: {
     VImage,
     VThumbnail,
   },
-  computed: {
-    ...mapState([
-      'activeImage',
-      'images',
-      'isModalOpened',
-      'selectedImages',
-    ]),
-    isModalOpened: {
-      get() {
-        return this.$store.state.isModalOpened;
-      },
-      set() {
-        this.$store.commit('setItem', {
-          item: 'isModalOpened',
-          value: false,
-        });
-      },
-    },
-  },
-  watch: {
-    activeImage() {
-      console.log(this.activeImage);
-    },
-  },
-  created() {
-    window.addEventListener('keyup', this.hotKeys);
-  },
-  methods: {
-    ...mapActions([
-      'openImage',
-    ]),
-    hotKeys(e) {
-      switch (e.which) {
-        case 37: // left
-          console.log('left');
-          if (this.activeImage.id === 0) {
-            console.log('This is already the first image.');
-            break;
-          } else {
-            this.changeActiveImage(this.activeImage.id - 1);
-          }
+})
+export default class PreviewBlock extends Vue {
+  @Prop({
+    type: Images,
+  })
+  images: Images = [];
 
+  @Watch('activeImage')
+  onActiveImageChanged(value: Image, oldValue: Image): void {
+    console.log(value);
+    console.log(oldValue);
+    console.log(this.activeImage);
+  }
+
+  // COMPUTED
+  // get isModalOpened(): void {
+  //   return this.$store.state.isModalOpened;
+  // }
+  //
+  // set isModalOpened(value) {
+  //   this.$store.commit('setItem', {
+  //     item: 'isModalOpened',
+  //     value: false,
+  //   });
+  // }
+
+  // METHODS
+  makeImageActive(id: number): void {
+    console.log(id);
+    this.changeActiveImage(id);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  toggleSelection(id: number): void {
+    console.log(id);
+  }
+
+  changeActiveImage(id: number): void {
+    this.activeImage.active = false;
+    this.activeImage = this.images[id];
+    this.activeImage.active = true;
+  }
+
+  open(link): void {
+    this.$electron.shell.openExternal(link);
+  }
+
+  hotKeys(e) {
+    switch (e.which) {
+      case 37: // left
+        console.log('left');
+        if (this.activeImage.id === 0) {
+          console.log('This is already the first image.');
           break;
+        } else {
+          this.changeActiveImage(this.activeImage.id - 1);
+        }
 
-        case 38: // up
-          console.log('up');
+        break;
+
+      case 38: // up
+        console.log('up');
+        break;
+
+      case 39: // right
+        console.log('right');
+        if (this.activeImage.id === this.images.length - 1) {
+          console.log('This is already the last image.');
           break;
+        } else {
+          this.changeActiveImage(this.activeImage.id + 1);
+        }
 
-        case 39: // right
-          console.log('right');
-          if (this.activeImage.id === this.images.length - 1) {
-            console.log('This is already the last image.');
-            break;
-          } else {
-            this.changeActiveImage(this.activeImage.id + 1);
-          }
+        break;
 
-          break;
+      case 40: // down
+        console.log('down');
+        break;
 
-        case 40: // down
-          console.log('down');
-          break;
+      case 46: // delete
+        // Debug data
+        console.log('delete');
+        console.log(this.activeImage);
+        console.log(this.images);
 
-        case 46: // delete
-          // Debug data
-          console.log('delete');
-          console.log(this.activeImage);
-          console.log(this.images);
-
-          if (this.deleteToRecycleBin) {
-            // Safe delete (to recycle bin)
-            trash([this.activeImage.src]).then(() => {
-              console.log('Images were successfully deleted.');
-              this.search(); // Update after deleting
-            });
-          } else if (!this.deleteToRecycleBin) {
-            // Permanently delete
-            fs.unlinkSync(this.activeImage.src);
+        if (this.deleteToRecycleBin) {
+          // Safe delete (to recycle bin)
+          trash([this.activeImage.src]).then(() => {
+            console.log('Images were successfully deleted.');
             this.search(); // Update after deleting
-          } else {
-            console.log('Error in deleting process.');
-          }
+          });
+        } else if (!this.deleteToRecycleBin) {
+          // Permanently delete
+          fs.unlinkSync(this.activeImage.src);
+          this.search(); // Update after deleting
+        } else {
+          console.log('Error in deleting process.');
+        }
 
-          break;
+        break;
 
-        default:
-          return; // exit this handler for other keys
-      }
-      e.preventDefault(); // prevent the default action (scroll / move caret)
-    },
-    // TODO: Check
-    makeImageActive(id) {
-      console.log(id);
-      this.changeActiveImage(id);
-    },
-    toggleSelection(id) {
-      console.log(id);
-    },
-    changeActiveImage(id) {
-      this.activeImage.active = false;
-      this.activeImage = this.images[id];
-      this.activeImage.active = true;
-    },
-    open(link) {
-      this.$electron.shell.openExternal(link);
-    },
-  },
-};
+      default:
+        return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  onOpenImage(val: Image): void {
+    console.log(val);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  onSelectImage(val: Image): void {
+    console.log(val);
+  }
+
+  // HOOKS
+  created(): void {
+    window.addEventListener('keyup', this.hotKeys);
+  }
+
+  // computed: {
+  //   ...mapState([
+  //     'activeImage',
+  //     'isModalOpened',
+  //     'selectedImages',
+  //   ]),
+  //
+  // },
+}
 </script>
 
 <style scoped>
