@@ -34,9 +34,9 @@ import {
 import trash from 'trash';
 
 import fs from 'fs';
-import { Image, Images } from '../../types/shared';
-import VImage from '../../components/VImage.vue';
-import VThumbnail from '../../components/VThumbnail.vue';
+import { Image, Images } from '../../types';
+import VImage from '../VImage.vue';
+import VThumbnail from '../VThumbnail.vue';
 
 @Component({
   components: {
@@ -46,7 +46,22 @@ import VThumbnail from '../../components/VThumbnail.vue';
 })
 export default class PreviewBlock extends Vue {
   @Prop({
-    type: Images,
+    type: Image || null,
+  })
+  activeImage: Image | null = null;
+
+  @Prop({
+    type: Boolean,
+  })
+  isModalOpened = false;
+
+  @Prop({
+    type: Array,
+  })
+  selectedImages: Images = [];
+
+  @Prop({
+    type: Array,
   })
   images: Images = [];
 

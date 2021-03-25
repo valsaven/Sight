@@ -1,9 +1,17 @@
 <template>
   <div id="app">
     <div id="wrapper">
-      <app-bar />
+      <app-bar
+        @load-images="onLoadImages"
+        @clear-images="onClearImages"
+      />
       <main>
-        <v-image-list />
+        <v-image-list
+          :active-image="activeImage"
+          :images="images"
+          :is-modal-opened="isModalOpened"
+          :selected-images="selectedImages"
+        />
         <v-preview />
       </main>
     </div>
@@ -13,10 +21,15 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+import {
+  Image,
+  Images,
+} from './types';
+
 import AppBar from './components/AppBar/index.vue';
 
-import VImageList from './views/ImageList/VImageList.vue';
-import VPreview from './views/Preview/VPreview.vue';
+import VImageList from './components/ImageList/VImageList.vue';
+import VPreview from './components/Preview/VPreview.vue';
 
 @Component({
   components: {
@@ -26,63 +39,66 @@ import VPreview from './views/Preview/VPreview.vue';
   },
 })
 export default class App extends Vue {
-  public images!: [];
+  public activeImage: Image | null = null;
+
+  public images: Images = [];
+
+  public isModalOpened = false;
+
+  public selectedImages: Images = [];
 
   public total = 0;
 
-  //   import { Action, Mutation, State } from 'vuex-simple';
-  // import { Image, Images } from '@/types/shared';
-  //
-  // export default class RootStore {
-  //   @State()
-  //   public activeImage?: Image;
-  //
-  //   @State()
-  //   public images: Images = [];
-  //
-  //   @State()
-  //   public isModalOpened = false;
-  //
-  //   @State()
-  //   public selectedImages: Images = [];
-  //
-  //   @State()
-  //   public total = 0;
-  //
-  //   @Mutation()
-  //   public setActiveImage(image: Image): void {
-  //     this.activeImage = image;
-  //   }
-  //
-  //   @Mutation()
-  //   public setTotal(total: number): void {
-  //     this.total = total;
-  //   }
-  //
-  //   @Mutation()
-  //   public setImages(images: Images): void {
-  //     this.images = images;
-  //   }
-  //
-  //   @Mutation()
-  //   public reverseImageSelection(imageId: number): void {
-  //     return this.images.forEach((image: Image) => {
-  //       if (image.id === imageId) {
-  //         image.selected = !image.selected;
-  //       }
-  //     });
-  //   }
-  //
-  //   @Action()
-  //   public toggleImageSelection(imageId: number): void {
-  //     this.reverseImageSelection(imageId);
-  //   }
-  //
-  //   @Action()
-  //   public toggleModalWindow(): void {
-  //     this.isModalOpened = !this.isModalOpened;
-  //   }
-  // }
+  public setActiveImage(image: Image): void {
+    this.activeImage = image;
+  }
+
+  public setTotal(total: number): void {
+    this.total = total;
+  }
+
+  public setImages(images: Images): void {
+    this.images = images;
+  }
+
+  public reverseImageSelection(imageId: number): void {
+    this.images.forEach((image: Image) => {
+      if (image.id === imageId) {
+        image.selected = !image.selected;
+      }
+    });
+  }
+
+  public toggleImageSelection(imageId: number): void {
+    this.reverseImageSelection(imageId);
+  }
+
+  public toggleModalWindow(): void {
+    this.isModalOpened = !this.isModalOpened;
+  }
+
+  onLoadImages(images: Images): void {
+    try {
+      this.setTotal(images.length);
+
+      if (this.images.length !== 0) {
+        this.setActiveImage(this.images[0]);
+      }
+
+      this.setImages(images);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  onClearImages(): void {
+    try {
+      this.setImages([]);
+      this.setTotal(0);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 </script>
 

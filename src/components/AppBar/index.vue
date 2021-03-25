@@ -4,6 +4,8 @@
     <search-block
       class="app-bar__item"
       :images="images"
+      @load-images="onLoadImages"
+      @clear-images="$emit('clear-images')"
     />
 
     <!-- SHORT INFO -->
@@ -22,10 +24,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Emit, Vue } from 'vue-property-decorator';
+
 import SearchBlock from './components/SearchBlock.vue';
 import ShortInfoBlock from './components/ShortInfoBlock.vue';
 import DeleteBlock from './components/DeleteBlock.vue';
+
+import { Images } from '../../types';
 
 @Component({
   components: {
@@ -35,6 +40,11 @@ import DeleteBlock from './components/DeleteBlock.vue';
   },
 })
 export default class AppBar extends Vue {
+  @Emit('load-images')
+  onLoadImages(images: Images): Images {
+    return images;
+  }
+
   // eslint-disable-next-line class-methods-use-this
   public get images() {
     return null;

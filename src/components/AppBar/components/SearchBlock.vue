@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Image, Images } from "@/types/shared";
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+import { Image, Images } from "@/types";
 import { sep } from "path";
 import { imageSize } from "image-size";
 import { format } from "date-fns";
@@ -35,22 +35,13 @@ export default class SearchBlock extends Vue {
 
   imagesPath: string = '/home/val/dev_vs/tmppp';
 
+  @Emit('load-images')
   loadImages(images: Images) {
-    try {
-      this.store.setImages(images);
-    } catch (err) {
-      console.error(err);
-    }
+    return images;
   }
 
-  clearImages() {
-    try {
-      this.store.setImages([]);
-      this.store.setTotal(0);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  @Emit('clear-images')
+  clearImages() {}
 
   getImages() {
     const humanFileSize = (size: number): string => {
@@ -122,12 +113,12 @@ export default class SearchBlock extends Vue {
 
       // TODO: Remove console.log
       console.log(tempImagesArray.length);
-
-      this.store.setTotal(tempImagesArray.length);
-
-      if (this.images.length !== 0) {
-        this.store.setActiveImage(this.images[0]);
-      }
+      //
+      // this.store.setTotal(tempImagesArray.length);
+      //
+      // if (this.images.length !== 0) {
+      //   this.store.setActiveImage(this.images[0]);
+      // }
     });
   }
 

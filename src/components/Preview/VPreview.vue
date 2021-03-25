@@ -7,20 +7,18 @@
       alt="image"
     >
     <img
-        v-else
-        svg-inline
-        class="v-preview__blank"
-        src="./assets/portrait-black-18dp.svg"
-        alt="image"
+      v-else
+      svg-inline
+      class="v-preview__blank"
+      src="./assets/portrait-black-18dp.svg"
+      alt="image"
     >
-
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { Image } from '@/types/shared';
-// import Portrait from './assets/portrait-black-18dp.svg';
+import { Image } from '../../types';
 
 @Component
 export default class VPreview extends Vue {
