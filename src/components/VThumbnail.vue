@@ -1,5 +1,8 @@
 <template>
-  <div class="v-thumbnail">
+  <div
+    class="v-thumbnail"
+    @click="onClick"
+  >
     <!-- Image -->
     <div class="v-thumbnail__image-container">
       <img
@@ -11,10 +14,17 @@
 
     <!-- Description -->
     <div class="v-thumbnail__description">
-      <div class="v-thumbnail__title">{{ image.name }}</div>
+      <div class="v-thumbnail__title">
+        {{ image.name }}
+      </div>
+
       <div class="v-thumbnail__details">
-        <div class="v-thumbnail__details-size">{{ image.dimensions }}</div>
-        <div class="v-thumbnail__details-ext">{{ image.ext }}</div>
+        <div class="v-thumbnail__details-size">
+          {{ image.dimensions }}
+        </div>
+        <div class="v-thumbnail__details-ext">
+          {{ image.ext }}
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +44,10 @@ interface Image {
 export default class VPreview extends Vue {
   @Prop()
   image?: Image;
+
+  onClick() {
+    console.log(this.image);
+  }
 }
 </script>
 

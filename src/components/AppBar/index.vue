@@ -50,7 +50,7 @@ export default class AppBar extends Vue {
 
   deleteToRecycleBin = true;
 
-  toggleDeleteMode(val: boolean) {
+  toggleDeleteMode(val: boolean): void {
     this.deleteToRecycleBin = val;
   }
 }

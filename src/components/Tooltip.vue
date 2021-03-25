@@ -1,7 +1,8 @@
 <template>
   <span
     class="tool"
-    data-tip="By adding this class you can provide almost any element with a tool tip." tabindex="1"
+    data-tip="By adding this class you can provide almost any element with a tool tip."
+    tabindex="1"
   >
     tool
   </span>
