@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-
 export default {
   name: 'VImage',
   props: {
@@ -49,14 +47,14 @@ export default {
     },
   },
   computed: {
-    ...mapState([
-      'selectedImages',
-    ]),
+    // ...mapState([
+    //   'selectedImages',
+    // ]),
   },
   methods: {
-    ...mapActions([
-      'toggleImageSelection',
-    ]),
+    // ...mapActions([
+    //   'toggleImageSelection',
+    // ]),
   },
 };
 </script>

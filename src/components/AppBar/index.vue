@@ -23,9 +23,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { useStore } from 'vuex-simple';
-
-import { RootStore } from '@/store/store';
 import SearchBlock from './components/SearchBlock.vue';
 import ShortInfoBlock from './components/ShortInfoBlock.vue';
 import DeleteBlock from './components/DeleteBlock.vue';
@@ -38,14 +35,16 @@ import DeleteBlock from './components/DeleteBlock.vue';
   },
 })
 export default class AppBar extends Vue {
-  public store: RootStore = useStore(this.$store);
-
+  // eslint-disable-next-line class-methods-use-this
   public get images() {
-    return this.store.images;
+    return null;
+    // return this.store.images;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public get total() {
-    return this.store.total;
+    return null;
+    // return this.store.total;
   }
 
   deleteToRecycleBin = true;

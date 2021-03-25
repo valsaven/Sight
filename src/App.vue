@@ -12,7 +12,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { mapState } from 'vuex';
 
 import AppBar from './components/AppBar/index.vue';
 
@@ -25,14 +24,65 @@ import VPreview from './views/Preview/VPreview.vue';
     VImageList,
     VPreview,
   },
-  // omit the namespace argument ('myModule') if you are not using namespaced modules
-  computed: mapState([
-    'images',
-    'total',
-  ]),
 })
 export default class App extends Vue {
-  public images!: []; // is assigned via mapState
+  public images!: [];
+
+  public total = 0;
+
+  //   import { Action, Mutation, State } from 'vuex-simple';
+  // import { Image, Images } from '@/types/shared';
+  //
+  // export default class RootStore {
+  //   @State()
+  //   public activeImage?: Image;
+  //
+  //   @State()
+  //   public images: Images = [];
+  //
+  //   @State()
+  //   public isModalOpened = false;
+  //
+  //   @State()
+  //   public selectedImages: Images = [];
+  //
+  //   @State()
+  //   public total = 0;
+  //
+  //   @Mutation()
+  //   public setActiveImage(image: Image): void {
+  //     this.activeImage = image;
+  //   }
+  //
+  //   @Mutation()
+  //   public setTotal(total: number): void {
+  //     this.total = total;
+  //   }
+  //
+  //   @Mutation()
+  //   public setImages(images: Images): void {
+  //     this.images = images;
+  //   }
+  //
+  //   @Mutation()
+  //   public reverseImageSelection(imageId: number): void {
+  //     return this.images.forEach((image: Image) => {
+  //       if (image.id === imageId) {
+  //         image.selected = !image.selected;
+  //       }
+  //     });
+  //   }
+  //
+  //   @Action()
+  //   public toggleImageSelection(imageId: number): void {
+  //     this.reverseImageSelection(imageId);
+  //   }
+  //
+  //   @Action()
+  //   public toggleModalWindow(): void {
+  //     this.isModalOpened = !this.isModalOpened;
+  //   }
+  // }
 }
 </script>
 

@@ -23,15 +23,11 @@ import { Image, Images } from "@/types/shared";
 import { sep } from "path";
 import { imageSize } from "image-size";
 import { format } from "date-fns";
-import { RootStore } from "@/store/store";
-import { useStore } from "vuex-simple";
 
 const fs = require('fs');
 
 @Component
 export default class SearchBlock extends Vue {
-  public store: RootStore = useStore(this.$store);
-
   @Prop({
     type: Array,
   })
