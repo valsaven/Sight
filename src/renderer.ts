@@ -39,8 +39,8 @@ Vue.config.productionTip = false;
 Vue.component('RecycleScroller', RecycleScroller);
 
 new Vue({
-    store,
-    render: (h) => h(App),
+  store,
+  render: (h) => h(App),
 }).$mount('#app');
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');

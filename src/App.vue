@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="wrapper">
-      <app-bar/>
+      <app-bar />
       <main>
-        <v-image-list/>
-        <v-preview></v-preview>
+        <v-image-list />
+        <v-preview />
       </main>
     </div>
   </div>

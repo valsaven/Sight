@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, protocol } from 'electron';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
@@ -6,8 +6,6 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
-
-import { protocol } from 'electron';
 
 const createWindow = () => {
   const protocolName = 'safe-file-protocol';

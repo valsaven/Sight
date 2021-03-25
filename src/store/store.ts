@@ -51,4 +51,3 @@ export default class RootStore {
     this.isModalOpened = !this.isModalOpened;
   }
 }
-
