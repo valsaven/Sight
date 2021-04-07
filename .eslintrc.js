@@ -23,10 +23,8 @@ module.exports = {
     'plugin:vue/recommended',
     '@vue/airbnb',
     '@vue/typescript/recommended',
-    // "plugin:@typescript-eslint/eslint-recommended",
-    // "plugin:@typescript-eslint/recommended",
-    // "plugin:import/errors",
-    // "plugin:import/warnings"
   ],
-  // "parser": "@typescript-eslint/parser"
+  rules: {
+    'class-methods-use-this': 'off',
+  },
 };

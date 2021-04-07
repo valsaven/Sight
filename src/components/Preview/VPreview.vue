@@ -1,9 +1,9 @@
 <template>
   <div class="v-preview">
     <img
-      v-if="image"
+      v-if="activeImage"
       class="v-preview__image"
-      :src="`safe-file-protocol://${image.src}`"
+      :src="`safe-file-protocol://${activeImage.src}`"
       alt="image"
     >
     <img
@@ -18,12 +18,13 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+
 import { Image } from '../../types';
 
 @Component
 export default class VPreview extends Vue {
   @Prop()
-  image?: Image;
+  activeImage?: Image;
 }
 </script>
 
@@ -36,6 +37,8 @@ export default class VPreview extends Vue {
 }
 
 .v-preview__image {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .v-preview__blank {

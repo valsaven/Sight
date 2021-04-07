@@ -165,12 +165,12 @@ export default class PreviewBlock extends Vue {
     e.preventDefault(); // prevent the default action (scroll / move caret)
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  onOpenImage(val: Image): void {
-    console.log(val);
+  @Emit('open-image')
+  onOpenImage(val: Image): Image {
+    return val;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // Ctrl+Click
   onSelectImage(val: Image): void {
     console.log(val);
   }

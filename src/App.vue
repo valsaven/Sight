@@ -11,8 +11,9 @@
           :images="images"
           :is-modal-opened="isModalOpened"
           :selected-images="selectedImages"
+          @open-image="onOpenImage"
         />
-        <v-preview />
+        <v-preview :active-image="activeImage" />
       </main>
     </div>
   </div>
@@ -98,6 +99,10 @@ export default class App extends Vue {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  onOpenImage(image: Image): void {
+    this.setActiveImage(image);
   }
 }
 </script>
