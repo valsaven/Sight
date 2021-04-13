@@ -11,7 +11,7 @@
     <!-- SHORT INFO -->
     <short-info-block
       class="app-bar__item"
-      :total="total"
+      :total="images.length"
     />
 
     <!-- DELETE -->
@@ -24,7 +24,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Emit,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
 
 import SearchBlock from './components/SearchBlock.vue';
 import ShortInfoBlock from './components/ShortInfoBlock.vue';
@@ -40,21 +45,14 @@ import { Images } from '../../types';
   },
 })
 export default class AppBar extends Vue {
+  @Prop({
+    type: Array,
+  })
+  images: Images = [];
+
   @Emit('load-images')
   onLoadImages(images: Images): Images {
     return images;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  public get images() {
-    return null;
-    // return this.store.images;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  public get total() {
-    return null;
-    // return this.store.total;
   }
 
   deleteToRecycleBin = true;

@@ -1,8 +1,9 @@
 <template>
   <div
     class="v-thumbnail"
-    @click.exact="openImage"
-    @click.ctrl="selectImage"
+    :class="{ 'selected': image.selected }"
+    @click.exact="$emit('open-image', image)"
+    @click.ctrl="$emit('select-image', image)"
   >
     <!-- Image -->
     <div class="v-thumbnail__image-container">
@@ -35,7 +36,6 @@
 import {
   Vue,
   Component,
-  Emit,
   Prop,
 } from 'vue-property-decorator';
 
@@ -50,22 +50,6 @@ interface Image {
 export default class VPreview extends Vue {
   @Prop()
   image?: Image;
-
-  @Emit('open-image')
-  openImage() {
-    console.log('openImage');
-    console.log(this.image);
-
-    return this.image;
-  }
-
-  @Emit('select-image')
-  selectImage() {
-    console.log('selectImage');
-    console.log(this.image);
-
-    return this.image;
-  }
 }
 </script>
 
@@ -116,7 +100,6 @@ export default class VPreview extends Vue {
 }
 
 .selected {
-  border: 5px solid #a0a0a0;
-  padding: 0;
+  background-color: #e8f5fe;
 }
 </style>

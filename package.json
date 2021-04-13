@@ -94,6 +94,7 @@
     "date-fns": "^2.20.2",
     "electron-squirrel-startup": "^1.0.0",
     "image-size": "^0.9.7",
+    "md5-file": "^5.0.0",
     "trash": "^7.1.1",
     "vue": "^2.6.12",
     "vue-property-decorator": "^9.1.2",

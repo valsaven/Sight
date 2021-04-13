@@ -19,10 +19,11 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
-import { Image, Images } from "@/types";
-import { sep } from "path";
-import { imageSize } from "image-size";
-import { format } from "date-fns";
+import { Image, Images } from '@/types';
+import { sep } from 'path';
+import { imageSize } from 'image-size';
+import { format } from 'date-fns';
+import md5File from 'md5-file';
 
 const fs = require('fs');
 
@@ -99,6 +100,7 @@ export default class SearchBlock extends Vue {
               modifiedTime: format(fileStats.mtimeMs, 'dd mmm yyyy, HH:mm:ss'),
               selected: false,
               active: false,
+              md5: md5File.sync(src),
             };
 
             tempImagesArray.push(image);

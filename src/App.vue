@@ -2,6 +2,7 @@
   <div id="app">
     <div id="wrapper">
       <app-bar
+        :images="images"
         @load-images="onLoadImages"
         @clear-images="onClearImages"
       />
@@ -12,6 +13,7 @@
           :is-modal-opened="isModalOpened"
           :selected-images="selectedImages"
           @open-image="onOpenImage"
+          @select-image="onSelectImage"
         />
         <preview-block :active-image="activeImage" />
       </main>
@@ -103,6 +105,31 @@ export default class App extends Vue {
 
   onOpenImage(image: Image): void {
     this.setActiveImage(image);
+  }
+
+  toggleSingleImageSelect(image: Image): void {
+    const index = this.images.findIndex((tempImage) => tempImage.md5 === image.md5);
+
+    if (index > -1) {
+      this.images[index].selected = !this.images[index].selected;
+    }
+  }
+
+  onSelectImage(image: Image): void {
+    const index = this.selectedImages
+      .findIndex((selectedImage) => selectedImage.md5 === image.md5);
+
+    console.log(index)
+
+    if (index > -1) {
+      this.selectedImages.splice(index, 1);
+    } else {
+      this.selectedImages.push(image);
+    }
+
+    this.toggleSingleImageSelect(image);
+
+    console.log(this.selectedImages)
   }
 }
 </script>

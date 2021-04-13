@@ -15,8 +15,8 @@
       >
         <v-thumbnail
           :image="item"
-          @open-image="onOpenImage"
-          @select-image="onSelectImage"
+          @open-image="$emit('open-image', item)"
+          @select-image="$emit('select-image', item)"
         />
       </RecycleScroller>
     </div>
@@ -27,7 +27,6 @@
 import {
   Vue,
   Component,
-  Emit,
   Prop,
   Watch,
 } from 'vue-property-decorator';
@@ -165,29 +164,10 @@ export default class ImageList extends Vue {
     e.preventDefault(); // prevent the default action (scroll / move caret)
   }
 
-  @Emit('open-image')
-  onOpenImage(val: Image): Image {
-    return val;
-  }
-
-  // Ctrl+Click
-  onSelectImage(val: Image): void {
-    console.log(val);
-  }
-
   // HOOKS
   created(): void {
     window.addEventListener('keyup', this.hotKeys);
   }
-
-  // computed: {
-  //   ...mapState([
-  //     'activeImage',
-  //     'isModalOpened',
-  //     'selectedImages',
-  //   ]),
-  //
-  // },
 }
 </script>
 

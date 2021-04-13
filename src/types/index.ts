@@ -8,6 +8,7 @@ export interface Image {
   modifiedTime: string;
   selected: boolean;
   active: boolean;
+  md5: string;
 }
 
 export type Images = Array<Image>
