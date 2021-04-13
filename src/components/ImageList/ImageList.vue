@@ -35,8 +35,8 @@ import trash from 'trash';
 
 import fs from 'fs';
 import { Image, Images } from '../../types';
-import VImage from '../VImage.vue';
-import VThumbnail from '../VThumbnail.vue';
+import VImage from './components/VImage.vue';
+import VThumbnail from './components/VThumbnail.vue';
 
 @Component({
   components: {
@@ -44,7 +44,7 @@ import VThumbnail from '../VThumbnail.vue';
     VThumbnail,
   },
 })
-export default class PreviewBlock extends Vue {
+export default class ImageList extends Vue {
   @Prop({
     type: Image || null,
   })

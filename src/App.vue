@@ -6,14 +6,14 @@
         @clear-images="onClearImages"
       />
       <main>
-        <v-image-list
+        <image-list
           :active-image="activeImage"
           :images="images"
           :is-modal-opened="isModalOpened"
           :selected-images="selectedImages"
           @open-image="onOpenImage"
         />
-        <v-preview :active-image="activeImage" />
+        <preview-block :active-image="activeImage" />
       </main>
     </div>
   </div>
@@ -29,14 +29,14 @@ import {
 
 import AppBar from './components/AppBar/index.vue';
 
-import VImageList from './components/ImageList/VImageList.vue';
-import VPreview from './components/Preview/VPreview.vue';
+import ImageList from './components/ImageList/ImageList.vue';
+import PreviewBlock from './components/PreviewBlock/index.vue';
 
 @Component({
   components: {
     AppBar,
-    VImageList,
-    VPreview,
+    ImageList,
+    PreviewBlock,
   },
 })
 export default class App extends Vue {
