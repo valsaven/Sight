@@ -56,7 +56,7 @@ export default class VPreview extends Vue {
 <style scoped>
 .v-thumbnail {
   align-items: center;
-  border: 1px solid #a0a0a0;
+  border: 1px solid #cecece;
   display: flex;
   margin: 0 auto;
   width: 300px;
@@ -65,8 +65,11 @@ export default class VPreview extends Vue {
 /* Image */
 .v-thumbnail__image-container {
   align-items: center;
+  border-right: 2px dashed #cecece;
   display: flex;
+  height: 60px;
   justify-content: center;
+  width: 78px;
 }
 
 .v-thumbnail__image {
@@ -83,11 +86,15 @@ export default class VPreview extends Vue {
   height: 12px;
   justify-content: space-around;
   margin-top: 4px;
-  width: 126px;
 }
 
 .v-thumbnail__details-ext {
   text-transform: uppercase;
+}
+
+.v-thumbnail__description {
+  padding: 0 10px;
+  width: 200px;
 }
 
 /* Title */
@@ -96,7 +103,6 @@ export default class VPreview extends Vue {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 140px;
 }
 
 .selected {
