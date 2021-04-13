@@ -12,7 +12,3 @@ export interface Image {
 }
 
 export type Images = Array<Image>
-
-export interface RootState {
-  version: string;
-}

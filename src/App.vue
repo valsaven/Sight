@@ -10,7 +10,6 @@
         <image-list
           :active-image="activeImage"
           :images="images"
-          :is-modal-opened="isModalOpened"
           :selected-images="selectedImages"
           @open-image="onOpenImage"
           @select-image="onSelectImage"
@@ -46,8 +45,6 @@ export default class App extends Vue {
 
   public images: Images = [];
 
-  public isModalOpened = false;
-
   public selectedImages: Images = [];
 
   public total = 0;
@@ -64,22 +61,6 @@ export default class App extends Vue {
     this.images = images;
   }
 
-  public reverseImageSelection(imageId: number): void {
-    this.images.forEach((image: Image) => {
-      if (image.id === imageId) {
-        image.selected = !image.selected;
-      }
-    });
-  }
-
-  public toggleImageSelection(imageId: number): void {
-    this.reverseImageSelection(imageId);
-  }
-
-  public toggleModalWindow(): void {
-    this.isModalOpened = !this.isModalOpened;
-  }
-
   onLoadImages(images: Images): void {
     try {
       this.setTotal(images.length);
@@ -90,7 +71,7 @@ export default class App extends Vue {
 
       this.setImages(images);
     } catch (err) {
-      console.error(err);
+      throw new Error(err);
     }
   }
 
@@ -99,7 +80,7 @@ export default class App extends Vue {
       this.setImages([]);
       this.setTotal(0);
     } catch (err) {
-      console.error(err);
+      throw new Error(err);
     }
   }
 
@@ -119,8 +100,6 @@ export default class App extends Vue {
     const index = this.selectedImages
       .findIndex((selectedImage) => selectedImage.md5 === image.md5);
 
-    console.log(index)
-
     if (index > -1) {
       this.selectedImages.splice(index, 1);
     } else {
@@ -128,8 +107,6 @@ export default class App extends Vue {
     }
 
     this.toggleSingleImageSelect(image);
-
-    console.log(this.selectedImages)
   }
 }
 </script>

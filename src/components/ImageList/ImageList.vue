@@ -50,11 +50,6 @@ export default class ImageList extends Vue {
   activeImage: Image | null = null;
 
   @Prop({
-    type: Boolean,
-  })
-  isModalOpened = false;
-
-  @Prop({
     type: Array,
   })
   selectedImages: Images = [];
@@ -71,97 +66,33 @@ export default class ImageList extends Vue {
     console.log(this.activeImage);
   }
 
-  // COMPUTED
-  // get isModalOpened(): void {
-  //   return this.$store.state.isModalOpened;
-  // }
-  //
-  // set isModalOpened(value) {
-  //   this.$store.commit('setItem', {
-  //     item: 'isModalOpened',
-  //     value: false,
-  //   });
-  // }
-
   // METHODS
-  makeImageActive(id: number): void {
-    console.log(id);
-    this.changeActiveImage(id);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  toggleSelection(id: number): void {
-    console.log(id);
-  }
-
-  changeActiveImage(id: number): void {
-    this.activeImage.active = false;
-    this.activeImage = this.images[id];
-    this.activeImage.active = true;
-  }
-
-  open(link): void {
+  open(link: string): void {
     this.$electron.shell.openExternal(link);
   }
 
-  hotKeys(e) {
-    switch (e.which) {
-      case 37: // left
-        console.log('left');
-        if (this.activeImage.id === 0) {
-          console.log('This is already the first image.');
-          break;
-        } else {
-          this.changeActiveImage(this.activeImage.id - 1);
-        }
+  hotKeys(event: KeyboardEvent): void {
+    if (event.key === 'Delete') {
+      console.log('delete');
+      console.log(this.activeImage);
+      console.log(this.images);
 
-        break;
-
-      case 38: // up
-        console.log('up');
-        break;
-
-      case 39: // right
-        console.log('right');
-        if (this.activeImage.id === this.images.length - 1) {
-          console.log('This is already the last image.');
-          break;
-        } else {
-          this.changeActiveImage(this.activeImage.id + 1);
-        }
-
-        break;
-
-      case 40: // down
-        console.log('down');
-        break;
-
-      case 46: // delete
-        // Debug data
-        console.log('delete');
-        console.log(this.activeImage);
-        console.log(this.images);
-
-        if (this.deleteToRecycleBin) {
-          // Safe delete (to recycle bin)
-          trash([this.activeImage.src]).then(() => {
-            console.log('Images were successfully deleted.');
-            this.search(); // Update after deleting
-          });
-        } else if (!this.deleteToRecycleBin) {
-          // Permanently delete
-          fs.unlinkSync(this.activeImage.src);
+      if (this.deleteToRecycleBin) {
+        // Safe delete (to recycle bin)
+        trash([this.activeImage.src]).then(() => {
+          console.log('Images were successfully deleted.');
           this.search(); // Update after deleting
-        } else {
-          console.log('Error in deleting process.');
-        }
-
-        break;
-
-      default:
-        return; // exit this handler for other keys
+        });
+      } else if (!this.deleteToRecycleBin) {
+        // Permanently delete
+        fs.unlinkSync(this.activeImage.src);
+        this.search(); // Update after deleting
+      } else {
+        console.log('Error in deleting process.');
+      }
     }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
+
+    event.preventDefault(); // prevent the default action (scroll / move caret)
   }
 
   // HOOKS
