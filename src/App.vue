@@ -3,8 +3,11 @@
     <div id="wrapper">
       <app-bar
         :images="images"
+        :delete-to-recycle-bin="deleteToRecycleBin"
+        @toggle-delete-mode="onToggleDeleteMode"
         @load-images="onLoadImages"
         @clear-images="onClearImages"
+        @delete-images="onDeleteImages"
       />
       <main>
         <image-list
@@ -22,6 +25,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import trash from 'trash';
+import fs from 'fs';
 
 import {
   Image,
@@ -48,6 +53,8 @@ export default class App extends Vue {
   public selectedImages: Images = [];
 
   public total = 0;
+
+  public deleteToRecycleBin = true;
 
   public setActiveImage(image: Image): void {
     this.activeImage = image;
@@ -82,6 +89,29 @@ export default class App extends Vue {
     } catch (err) {
       throw new Error(err);
     }
+  }
+
+  onToggleDeleteMode(val: boolean): void {
+    this.deleteToRecycleBin = !val;
+  }
+
+  onDeleteImages(): void {
+    this.selectedImages.forEach((selectedImage: Image) => {
+      if (this.deleteToRecycleBin) {
+        // Safe delete (to recycle bin)
+        // FIXME: Fix detele to recucle bin
+        trash(selectedImage.src).then(() => {
+          console.log('Images were successfully deleted.');
+          // this.search(); // Update after deleting
+        });
+      } else if (!this.deleteToRecycleBin) {
+        // Permanently delete
+        fs.unlinkSync(selectedImage.src);
+        // this.search(); // Update after deleting
+      } else {
+        console.log('Error in deleting process.');
+      }
+    });
   }
 
   onOpenImage(image: Image): void {

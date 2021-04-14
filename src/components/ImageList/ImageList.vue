@@ -30,9 +30,7 @@ import {
   Prop,
   Watch,
 } from 'vue-property-decorator';
-import trash from 'trash';
 
-import fs from 'fs';
 import { Image, Images } from '../../types';
 import VImage from './components/VImage.vue';
 import VThumbnail from './components/VThumbnail.vue';
@@ -67,37 +65,37 @@ export default class ImageList extends Vue {
   }
 
   // METHODS
-  open(link: string): void {
-    this.$electron.shell.openExternal(link);
-  }
+  // open(link: string): void {
+  //   this.$electron.shell.openExternal(link);
+  // }
 
-  hotKeys(event: KeyboardEvent): void {
-    if (event.key === 'Delete') {
-      console.log('delete');
-      console.log(this.activeImage);
-      console.log(this.images);
-
-      if (this.deleteToRecycleBin) {
-        // Safe delete (to recycle bin)
-        trash([this.activeImage.src]).then(() => {
-          console.log('Images were successfully deleted.');
-          this.search(); // Update after deleting
-        });
-      } else if (!this.deleteToRecycleBin) {
-        // Permanently delete
-        fs.unlinkSync(this.activeImage.src);
-        this.search(); // Update after deleting
-      } else {
-        console.log('Error in deleting process.');
-      }
-    }
-
-    event.preventDefault(); // prevent the default action (scroll / move caret)
-  }
+  // hotKeys(event: KeyboardEvent): void {
+  //   if (event.key === 'Delete') {
+  //     console.log('delete');
+  //     console.log(this.activeImage);
+  //     console.log(this.images);
+  //
+  //     if (this.deleteToRecycleBin) {
+  //       // Safe delete (to recycle bin)
+  //       trash([this.activeImage.src]).then(() => {
+  //         console.log('Images were successfully deleted.');
+  //         this.search(); // Update after deleting
+  //       });
+  //     } else if (!this.deleteToRecycleBin) {
+  //       // Permanently delete
+  //       fs.unlinkSync(this.activeImage.src);
+  //       this.search(); // Update after deleting
+  //     } else {
+  //       console.log('Error in deleting process.');
+  //     }
+  //   }
+  //
+  //   event.preventDefault(); // prevent the default action (scroll / move caret)
+  // }
 
   // HOOKS
   created(): void {
-    window.addEventListener('keyup', this.hotKeys);
+    // window.addEventListener('keyup', this.hotKeys);
   }
 }
 </script>

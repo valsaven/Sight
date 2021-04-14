@@ -18,6 +18,7 @@
     <delete-block
       class="app-bar__item"
       @toggle-delete-mode="toggleDeleteMode"
+      @delete-images="$emit('delete-images')"
     />
     <!-- FIXME: [Vue warn]: Avoid mutating a prop directly at line 18 -->
   </div>
@@ -46,6 +47,11 @@ import { Images } from '../../types';
 })
 export default class AppBar extends Vue {
   @Prop({
+    type: Boolean,
+  })
+  deleteToRecycleBin = true;
+
+  @Prop({
     type: Array,
   })
   images: Images = [];
@@ -55,10 +61,9 @@ export default class AppBar extends Vue {
     return images;
   }
 
-  deleteToRecycleBin = true;
-
-  toggleDeleteMode(val: boolean): void {
-    this.deleteToRecycleBin = val;
+  @Emit('toggle-delete-mode')
+  toggleDeleteMode(val: boolean): boolean {
+    return val;
   }
 }
 </script>

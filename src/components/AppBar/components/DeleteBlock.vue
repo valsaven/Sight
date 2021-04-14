@@ -3,12 +3,12 @@
     <button
       class="button remove__btn"
       :class="{ 'remove__btn_danger': !deleteToRecycleBin }"
-      @click="$emit('toggle-delete-mode')"
+      @click="$emit('delete-images')"
     >
       Delete
     </button>
 
-    <label for="delete-to-recycle-bin">Remove files to recycle bin</label>
+    <label for="delete-to-recycle-bin">Delete files to recycle bin</label>
     <input
       id="delete-to-recycle-bin"
       v-model="deleteToRecycleBin"
@@ -33,7 +33,7 @@ export default class DeleteBlock extends Vue {
 </script>
 
 <style scoped>
-.remove__btn {
+.remove__btn_danger {
   background-color: #ff003b;
   color: #fff;
 }

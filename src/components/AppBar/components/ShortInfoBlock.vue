@@ -18,7 +18,3 @@ export default class ShortInfoBlock extends Vue {
   total?: number;
 }
 </script>
-
-<style scoped>
-
-</style>

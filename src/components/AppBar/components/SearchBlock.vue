@@ -105,22 +105,12 @@ export default class SearchBlock extends Vue {
 
             tempImagesArray.push(image);
           } catch (e) {
-            console.log(e);
-            console.log(e.message);
+            throw new Error(e);
           }
         }
       }
 
       this.loadImages(tempImagesArray);
-
-      // TODO: Remove console.log
-      console.log(tempImagesArray.length);
-      //
-      // this.store.setTotal(tempImagesArray.length);
-      //
-      // if (this.images.length !== 0) {
-      //   this.store.setActiveImage(this.images[0]);
-      // }
     });
   }
 
