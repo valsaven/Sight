@@ -3,32 +3,21 @@
 A cross-platform image viewer.
 
 Features:
+
 - Select image: Ctrl + Click
 - Get image info: Hovering mouse over image
 
-## Project setup
-```
-npm install
-```
+### Setup & develop
 
-### Compiles and hot-reloads for development
-```
-npm start
-```
+```bash
+# Project setup
+npm i
 
-### Pack package
-```
-npm run package
-```
+# Compiles and hot-reloads for development
+npm run dev
 
-### Make package
-```
-npm run make
-```
-
-### Lints files
-```
-npm run lint
+# Build package
+npm run build
 ```
 
 ## License

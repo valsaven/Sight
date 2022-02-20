@@ -1,36 +1,17 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "allowJs": true,
-    "module": "commonjs",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "outDir": "dist",
+    "module": "esnext",
     "moduleResolution": "node",
-    "experimentalDecorators": true,
     "importHelpers": true,
-    "strict": true,
     "jsx": "preserve",
+    "esModuleInterop": true,
     "resolveJsonModule": true,
-    "paths": {
-      "*": ["node_modules/*"],
-      "@/*": [
-        "src/*"
-      ]
-    }
-  },
-  "include": [
-    "src/**/*",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "sourceMap": true,
+    "baseUrl": "./",
+    "strict": true,
+    "paths": {},
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  }
 }
