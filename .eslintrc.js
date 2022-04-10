@@ -1,30 +1,15 @@
 module.exports = {
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: [
-          '.js',
-          '.jsx',
-          '.ts',
-          '.tsx',
-        ],
-      },
-    },
-  },
   parserOptions: {
-    ecmaVersion: 2020,
-  },
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module'
   },
   extends: [
-    'plugin:vue/recommended',
-    '@vue/airbnb',
-    '@vue/typescript/recommended',
+    // add more generic rulesets here, such as:
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended',
   ],
   rules: {
-    'class-methods-use-this': 'off',
+    // override/add rules settings here, such as:
+    // 'vue/no-unused-vars': 'error'
   },
-};
+}
