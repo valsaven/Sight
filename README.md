@@ -1,40 +1,23 @@
-# Watcher
+# Sight
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvalsaven%2FSight.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvalsaven%2FSight?ref=badge_shield)
-
 
 A cross-platform image viewer.
 
 Features:
+
 - Select image: Ctrl + Click
 - Get image info: Hovering mouse over image
 
-## Project setup
-```
-npm install
-```
+### Setup & develop
 
-## Post install
-```
-npm run electron-builder install-app-deps
-```
+```bash
+# Project setup
+npm i
 
-### Compiles and hot-reloads Electron package for development
-```
-npm run electron:serve
-```
+# Compiles and hot-reloads for development
+npm run dev
 
-### Compiles and minifies Electron package for production
-```
-npm run electron:build
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
+# Build package
 npm run build
 ```
 
