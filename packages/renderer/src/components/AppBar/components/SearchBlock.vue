@@ -41,7 +41,7 @@ export default defineComponent({
   },
   data() {
     return {
-      imagesPath: '/home/val/dev/tmppp',
+      imagesPath: '/Users/valsaven/dev/tmppp',
     }
   },
   methods: {
