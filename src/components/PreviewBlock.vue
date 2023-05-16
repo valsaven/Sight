@@ -8,38 +8,19 @@ defineProps<{
 </script>
 
 <template>
-  <div class="preview-block">
+  <div class="preview-block items-center flex justify-center w-full p-2">
     <img
       v-if="activeImage"
-      class="preview-block__image"
+      class="preview-block__image max-h-full max-w-full"
       :src="`sight://${activeImage.src}`"
       alt="image"
     >
     <img
       v-else
       svg-inline
-      class="preview-block__blank"
+      class="preview-block__blank h-60 w-60"
       :src="'./portrait-black-18dp.svg'"
       alt="image"
     >
   </div>
 </template>
-
-<style scoped>
-.preview-block {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.preview-block__image {
-  max-height: 100%;
-  max-width: 100%;
-}
-
-.preview-block__blank {
-  height: 350px;
-  width: 350px;
-}
-</style>

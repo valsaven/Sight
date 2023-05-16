@@ -32,10 +32,10 @@ function toggleDeleteMode(val: boolean): boolean {
 </script>
 
 <template>
-  <div class="app-bar">
+  <div class="app-bar bg-gray-200 flex m-2 p-4 flex-initial">
     <!-- SEARCH -->
     <search-block
-      class="app-bar__item"
+      class="basis-1/3 flex items-center justify-start"
       :images="props.images"
       @load-images="loadImages"
       @clear-images="$emit('clear-images')"
@@ -43,13 +43,13 @@ function toggleDeleteMode(val: boolean): boolean {
 
     <!-- SHORT INFO -->
     <short-info-block
-      class="app-bar__item"
+      class="basis-1/3 flex items-center justify-center"
       :total="props.images.length"
     />
 
     <!-- DELETE -->
     <delete-block
-      class="app-bar__item"
+      class="basis-1/3 flex items-center justify-end"
       @toggle-delete-mode="toggleDeleteMode"
       @delete-images="$emit('delete-images')"
     />
@@ -58,12 +58,6 @@ function toggleDeleteMode(val: boolean): boolean {
 </template>
 
 <style>
-.app-bar {
-  background-color: #f1f1f1;
-  display: flex;
-  padding: 10px 0 10px;
-}
-
 .app-bar__item {
   flex: 20%;
 }

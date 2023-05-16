@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 
-defineProps<{
-  total: Number,
+const props = defineProps<{
+  total: number,
 }>();
+
+const imageText = computed(() => (props.total !== 1 ? 'images' : 'image'));
 </script>
 
 <template>
-  <div class="short-info">
+  <div class="short-info flex">
     <span class="short-info__files-number">
-      {{ total }} image(s)
+      {{ total }} {{ imageText }}
     </span>
   </div>
 </template>
