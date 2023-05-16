@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
+import {
+  defineEmits,
+  defineProps,
+  onMounted,
+  onUnmounted,
+  ref,
+} from 'vue';
 import { Image } from '../../../types';
 
 const props = defineProps<{
@@ -7,95 +13,71 @@ const props = defineProps<{
 }>();
 
 defineEmits(['open-image', 'select-image']);
+
+const isCtrlPressed = ref(false);
+const isHovered = ref(false);
+
+function handleKeyDown(event: KeyboardEvent) {
+  if (event.key === 'Control') {
+    isCtrlPressed.value = true;
+  }
+}
+
+function handleKeyUp(event: KeyboardEvent) {
+  if (event.key === 'Control') {
+    isCtrlPressed.value = false;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keyup', handleKeyUp);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener('keyup', handleKeyUp);
+});
 </script>
 
 <template>
   <div
-    class="v-thumbnail"
-    :class="{ selected: props.image.selected }"
-    @click.exact="$emit('open-image', image)"
-    @click.ctrl="$emit('select-image', image)"
+    class="v-thumbnail items-center border border-gray-300 flex mx-auto w-72 cursor-pointer"
+    :class="{
+      'bg-blue-300': props.image.selected && !(isCtrlPressed && isHovered),
+      'bg-blue-400': isCtrlPressed && isHovered,
+    }"
+    tabindex="0"
+    @click.exact="$emit('open-image', props.image)"
+    @click.ctrl="$emit('select-image', props.image)"
+    @keyup.enter.exact="$emit('open-image', props.image)"
+    @keyup.enter.ctrl="$emit('select-image', props.image)"
+    @mouseover="isHovered = true"
+    @mouseleave="isHovered = false"
   >
     <!-- Image -->
-    <div class="v-thumbnail__image-container">
+    <div class="items-center border-r-2 border-dashed border-gray-400 flex h-15 justify-center w-20">
       <img
-        class="v-thumbnail__image"
+        class="max-w-20 h-14"
         :src="`sight://${props.image.src}`"
         alt="image"
       >
     </div>
 
     <!-- Description -->
-    <div class="v-thumbnail__description">
-      <div class="v-thumbnail__title">
+    <div class="px-2.5 w-48">
+      <div class="text-xs overflow-hidden overflow-ellipsis whitespace-nowrap text-center">
         {{ props.image.name }}
       </div>
 
-      <div class="v-thumbnail__details">
-        <div class="v-thumbnail__details-size">
+      <div class="items-center text-gray-600 flex text-xs h-3 justify-around mt-1">
+        <div>
           {{ props.image.dimensions }}
         </div>
-        <div class="v-thumbnail__details-ext">
+        <div class="uppercase">
           {{ props.image.ext }}
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.v-thumbnail {
-  align-items: center;
-  border: 1px solid #cecece;
-  display: flex;
-  margin: 0 auto;
-  width: 300px;
-}
-
-/* Image */
-.v-thumbnail__image-container {
-  align-items: center;
-  border-right: 2px dashed #cecece;
-  display: flex;
-  height: 60px;
-  justify-content: center;
-  width: 78px;
-}
-
-.v-thumbnail__image {
-  max-width: 80px;
-  height: 60px;
-}
-
-/* Details */
-.v-thumbnail__details {
-  align-items: center;
-  color: #505050;
-  display: flex;
-  font-size: 12px;
-  height: 12px;
-  justify-content: space-around;
-  margin-top: 4px;
-}
-
-.v-thumbnail__details-ext {
-  text-transform: uppercase;
-}
-
-.v-thumbnail__description {
-  padding: 0 10px;
-  width: 200px;
-}
-
-/* Title */
-.v-thumbnail__title {
-  font-size: 12px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.selected {
-  background-color: #e8f5fe;
-}
-</style>

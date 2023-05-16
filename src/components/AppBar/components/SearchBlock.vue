@@ -112,21 +112,35 @@ function goUp() {
 </script>
 
 <template>
-  <div class="search">
+  <div class="search-block">
     <button
-      class="button search__btn"
       type="button"
+      class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 max-w-fit bg-white"
       @click="goUp"
     >
-      Up
+      <svg
+        aria-hidden="true"
+        class="w-5 h-5"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+        height="48"
+        viewBox="0 96 960 960"
+        width="48"
+      >
+        <path d="M450 896V370L202 618l-42-42 320-320 320 320-42 42-248-248v526h-60Z" />
+      </svg>
+      <span class="sr-only">Go up</span>
     </button>
 
-    <input
-      v-model="imagesPath"
-      type="text"
-      class="search__input"
-      placeholder="Enter the path..."
-      @keyup.enter="getImages"
-    >
+    <div>
+      <input
+        id="path"
+        v-model="imagesPath"
+        type="text"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-inner"
+        required
+        @keyup.enter="getImages"
+      >
+    </div>
   </div>
 </template>

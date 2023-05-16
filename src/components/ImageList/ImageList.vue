@@ -68,45 +68,21 @@ watch(props.activeImage, (newValue: Image, oldValue: Image): void => {
 
 <template>
   <div
-    class="v-image-list__wrapper"
+    v-if="images.length > 0"
+    class="image-list min-w-fit max-h-full w-2/5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
   >
-    <div
-      v-if="images.length > 0"
-      class="v-image-list"
+    <RecycleScroller
+      v-slot="{ item }"
+      class="scroller max-h-full"
+      :items="images"
+      :item-size="8"
+      key-field="id"
     >
-      <RecycleScroller
-        v-slot="{ item }"
-        class="scroller"
-        :items="images"
-        :item-size="8"
-        key-field="id"
-      >
-        <v-thumbnail
-          :image="item"
-          @open-image="$emit('open-image', item)"
-          @select-image="$emit('select-image', item)"
-        />
-      </RecycleScroller>
-    </div>
+      <v-thumbnail
+        :image="item"
+        @open-image="$emit('open-image', item)"
+        @select-image="$emit('select-image', item)"
+      />
+    </RecycleScroller>
   </div>
 </template>
-
-<style scoped>
-.v-image-list__wrapper {
-  height: 100%;
-  width: 400px;
-}
-
-.v-image-list {
-  flex-basis: 80%;
-  height: 100%;
-  overflow-y: auto;
-  width: 100%;
-}
-
-.v-image-list__images-list {
-  display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
-}
-</style>

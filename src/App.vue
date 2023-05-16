@@ -101,82 +101,29 @@ function onSelectImage(image: Image): void {
 </script>
 
 <template>
-  <div class="sight">
-    <div class="wrapper">
-      <AppBar
+  <div class="w-screen h-screen bg-gray-50 antialiased flex flex-col">
+    <AppBar
+      :images="images"
+      :delete-to-recycle-bin="deleteToRecycleBin"
+      @toggle-delete-mode="onToggleDeleteMode"
+      @load-images="onLoadImages"
+      @clear-images="onClearImages"
+      @delete-images="onDeleteImages"
+    />
+
+    <main class="h-full flex flex-row max-h-full overflow-hidden">
+      <ImageList
+        :active-image="activeImage"
         :images="images"
-        :delete-to-recycle-bin="deleteToRecycleBin"
-        @toggle-delete-mode="onToggleDeleteMode"
-        @load-images="onLoadImages"
-        @clear-images="onClearImages"
-        @delete-images="onDeleteImages"
+        :selected-images="selectedImages"
+        @open-image="onOpenImage"
+        @select-image="onSelectImage"
       />
-      <main>
-        <ImageList
-          :active-image="activeImage"
-          :images="images"
-          :selected-images="selectedImages"
-          @open-image="onOpenImage"
-          @select-image="onSelectImage"
-        />
-        <PreviewBlock :active-image="activeImage" />
-      </main>
-    </div>
+      <PreviewBlock :active-image="activeImage" />
+    </main>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-img {
-  margin: 5px;
-}
-.plugins {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-/* My styles */
-
-.sight {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-html,
-body,
-.sight {
-  margin: 0;
-}
-
-body {
-  font-family: "Source Sans Pro", sans-serif;
-}
-
-.wrapper {
-  background: radial-gradient(
-    ellipse at top left,
-    rgba(255, 255, 255, 1) 40%,
-    rgba(229, 229, 229, 0.9) 100%
-  );
-  height: 100vh;
-  width: 100vw;
-}
-
-main {
-  display: flex;
-  height: calc(100% - 51px);
-  width: 100vw;
-  flex-direction: row;
-}
+@import "index.css";
 </style>
