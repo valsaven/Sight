@@ -67,6 +67,7 @@ async function copyToClipboard(text: string): Promise<void> {
 }
 
 .v-thumbnail__image {
+  max-height: 100%;
   max-width: 72px;
 }
 
