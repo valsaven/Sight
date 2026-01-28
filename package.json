@@ -39,7 +39,7 @@
     "@vitejs/plugin-vue": "^6.0.3",
     "date-fns": "^4.1.0",
     "electron": "^40.0.0",
-    "electron-builder": "^26.4.0",
+    "electron-builder": "^26.6.0",
     "electron-vite": "^5.0.0",
     "hash-wasm": "^4.12.0",
     "image-size": "^2.0.2",
