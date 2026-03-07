@@ -1,6 +1,6 @@
 {
   "name": "sight",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A cross-platform image viewer based on Electron and Vue 🌄",
   "homepage": "https://github.com/valsaven/sight",
   "license": "GPL-3.0",
@@ -34,22 +34,22 @@
   },
   "devDependencies": {
     "@electron-toolkit/tsconfig": "^2.0.0",
-    "@tanstack/vue-virtual": "^3.13.18",
-    "@types/node": "^25.3.0",
+    "@tanstack/vue-virtual": "^3.13.21",
+    "@types/node": "^25.3.5",
     "@vitejs/plugin-vue": "^6.0.4",
     "date-fns": "^4.1.0",
-    "electron": "^40.6.0",
+    "electron": "^40.8.0",
     "electron-builder": "^26.8.1",
     "electron-vite": "^5.0.0",
     "hash-wasm": "^4.12.0",
     "image-size": "^2.0.2",
-    "oxfmt": "^0.34.0",
-    "oxlint": "^1.49.0",
+    "oxfmt": "^0.36.0",
+    "oxlint": "^1.51.0",
     "p-limit": "^7.3.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-electron-renderer": "^0.14.6",
-    "vue": "^3.5.28",
+    "vue": "^3.5.29",
     "vue-tsc": "^3.2.5"
   }
 }
